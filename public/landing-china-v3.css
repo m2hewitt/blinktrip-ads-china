@@ -1373,10 +1373,14 @@
         background: #fff;
         color: var(--p700);
         border-color: #fff;
+        box-shadow: 0 5px 14px rgba(25, 25, 25, 0.18);
       }
       .pkg-custom-card .btn-wa:hover {
         background: var(--p50);
         color: var(--p700);
+      }
+      .pkg-custom-card .btn-wa:focus-visible {
+        outline-color: #fff;
       }
       @media (max-width: 640px) {
         .pkg-custom-card {
