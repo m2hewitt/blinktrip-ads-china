@@ -225,6 +225,14 @@
         padding: 0.55rem 0.9rem;
         min-height: 40px;
       }
+      @media (max-width: 759px) {
+        .nav {
+          justify-content: center;
+        }
+        .nav .btn-wa {
+          display: none;
+        }
+      }
       @media (min-width: 920px) {
         .nav-links {
           display: flex;
@@ -378,7 +386,7 @@
           position: absolute;
         }
         .hero {
-          padding: calc(var(--header-h) + var(--space-5)) 0 var(--space-6);
+          padding: calc(var(--header-h) - var(--space-2)) 0 var(--space-6);
         }
         .hero-grid {
           gap: 24px;
