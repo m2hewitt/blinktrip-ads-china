@@ -1,0 +1,8 @@
+{
+  "name": "blinktrip-ads-china",
+  "compatibility_date": "2026-07-23",
+  "assets": {
+    "directory": "./public",
+    "html_handling": "auto-trailing-slash"
+  }
+}
