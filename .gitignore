@@ -1,7 +1,5 @@
 *
-!landing-china-v3.html
-!landing-china-v3.css
-!landing-china-v3.js
-!img/
-!img/**
+!public/
+!public/**
+!wrangler.jsonc
 !.gitignore
