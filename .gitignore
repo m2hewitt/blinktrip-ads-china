@@ -2,4 +2,5 @@
 !public/
 !public/**
 !wrangler.jsonc
+!vercel.json
 !.gitignore
