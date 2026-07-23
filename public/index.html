@@ -16,6 +16,7 @@
     />
     <meta name="robots" content="noindex,follow,noarchive" />
     <link rel="icon" href="data:," />
+    <link rel="preload" as="style" href="landing-china-v3.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -211,9 +212,11 @@
               >
               <img
                 src="img/great-wall-hero-populated.webp"
+                srcset="img/great-wall-hero-populated-640.webp 640w, img/great-wall-hero-populated.webp 995w"
+                sizes="(max-width: 899px) calc(100vw - 48px), 700px"
                 alt="Pareja y otros viajeros recorriendo la Gran Muralla China cerca de Beijing"
-                width="1200"
-                height="800"
+                width="995"
+                height="663"
                 fetchpriority="high"
               /><span class="ov">📍 Gran Muralla China, Beijing</span>
             </div>
@@ -714,6 +717,6 @@
       </button>
     </div>
 
-    <script src="landing-china-v3.js"></script>
+    <script src="landing-china-v3.js" defer></script>
   </body>
 </html>
