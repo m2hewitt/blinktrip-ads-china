@@ -1079,9 +1079,6 @@
         TRACK_GUARD.set(key, now);
         window.dataLayer.push(data);
         window.BT_EVENTS.push(data);
-        // Reenvío a GA4 (gtag.js). whatsapp_click se marca como evento clave en GA4
-        // y se importa a Google Ads como la única conversión de la campaña.
-        if (typeof window.gtag === "function") window.gtag("event", event, payload);
       }
       function shortHash(value) {
         let h = 2166136261;
