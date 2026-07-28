@@ -3,23 +3,20 @@
   BlinkTrip · Paquetes personalizados a China 2026 desde Argentina · Landing PPC no indexable
   Anclas PPC: #como-funciona · #itinerarios · #personalizar · #acompanadas
   Negativas sugeridas en Ads: [precio de un vuelo a china], [precio de vuelo a china], [precio vuelo a china]
-  Tracking: dataLayer + BT_EVENTS (local) + GA4 gtag.js (G-V2BEQC2LZN, misma propiedad que blinktrip.com).
-  El evento whatsapp_click se reenvía a GA4 desde btTrack() en landing-china-v3.js.
+  Tracking: dataLayer + BT_EVENTS (local) + Google Tag Manager (GTM-TJMVVZN).
+  El evento whatsapp_click se reenvía a través de dataLayer desde btTrack() en landing-china-v3.js.
 -->
 <html lang="es-AR">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <!-- Google tag (gtag.js) — GA4, misma propiedad que blinktrip.com -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V2BEQC2LZN"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-V2BEQC2LZN");
-    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TJMVVZN');</script>
+    <!-- End Google Tag Manager -->
     <title>Viajes personalizados a China desde Argentina | BlinkTrip</title>
     <meta
       name="description"
@@ -44,6 +41,10 @@
     <link rel="stylesheet" href="landing-china-v3.css" />
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TJMVVZN"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <header class="site">
       <div class="nav">
         <a class="brand" href="#top" aria-label="BlinkTrip, inicio"
