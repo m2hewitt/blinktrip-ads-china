@@ -3,12 +3,23 @@
   BlinkTrip · Paquetes personalizados a China 2026 desde Argentina · Landing PPC no indexable
   Anclas PPC: #como-funciona · #itinerarios · #personalizar · #acompanadas
   Negativas sugeridas en Ads: [precio de un vuelo a china], [precio de vuelo a china], [precio vuelo a china]
-  Tracking local: dataLayer + BT_EVENTS. No instala GTM, GA4, Ads ni píxeles externos.
+  Tracking: dataLayer + BT_EVENTS (local) + GA4 gtag.js (G-V2BEQC2LZN, misma propiedad que blinktrip.com).
+  El evento whatsapp_click se reenvía a GA4 desde btTrack() en landing-china-v3.js.
 -->
 <html lang="es-AR">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!-- Google tag (gtag.js) — GA4, misma propiedad que blinktrip.com -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V2BEQC2LZN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-V2BEQC2LZN");
+    </script>
     <title>Viajes personalizados a China desde Argentina | BlinkTrip</title>
     <meta
       name="description"
