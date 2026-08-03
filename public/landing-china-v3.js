@@ -1137,14 +1137,14 @@
         return p.dateWindow;
       }
       const WA_MESSAGE =
-        "[GACH] ¡Hola BlinkTrip! Quiero armar un viaje personalizado a China y me gustaría recibir una propuesta según fechas y disponibilidad.";
+        "[ACH] ¡Hola BlinkTrip! Quiero armar un viaje personalizado a China y me gustaría recibir una propuesta según fechas y disponibilidad.";
       function waLink() {
         return (
           "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(WA_MESSAGE)
         );
       }
       // All entry points intentionally open the same WhatsApp URL. The CRM
-      // classifies these conversations from the shared [GACH] prefix.
+      // classifies these conversations from the shared [ACH] prefix.
       const itineraryMessage = () => WA_MESSAGE;
       const accompaniedMessage = () => WA_MESSAGE;
       const productMessage = () => WA_MESSAGE;
