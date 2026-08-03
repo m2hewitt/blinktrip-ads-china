@@ -1136,25 +1136,19 @@
           }).format(new Date(p.startDate + "T12:00:00-03:00"));
         return p.dateWindow;
       }
-      function waLink(message) {
+      const WA_MESSAGE =
+        "[GACH] ¡Hola BlinkTrip! Quiero armar un viaje personalizado a China y me gustaría recibir una propuesta según fechas y disponibilidad.";
+      function waLink() {
         return (
-          "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(message)
+          "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(WA_MESSAGE)
         );
       }
-      function itineraryMessage(p) {
-        return `¡Hola BlinkTrip! Quiero usar "${p.customerName}" como punto de partida y personalizarlo. Vi la referencia de USD ${money(p.priceUsd)} por persona, en habitación doble, y me gustaría recibir una cotización. Ref: ${refFor(p.id)}`;
-      }
-      function accompaniedMessage(p) {
-        return `¡Hola BlinkTrip! Me interesa la salida acompañada "${p.customerName}" del ${displayDate(p)}. Quisiera consultar precio, disponibilidad, coordinación y servicios incluidos. Ref: ${refFor(p.id)}`;
-      }
-      function productMessage(p) {
-        return p.family === "acompanadas"
-          ? accompaniedMessage(p)
-          : itineraryMessage(p);
-      }
-      function genericMessage(intent) {
-        return `¡Hola BlinkTrip! Quiero armar un viaje personalizado a China y me gustaría recibir una propuesta según fechas y disponibilidad. Ref: ${refFor(intent || "custom")}`;
-      }
+      // All entry points intentionally open the same WhatsApp URL. The CRM
+      // classifies these conversations from the shared [GACH] prefix.
+      const itineraryMessage = () => WA_MESSAGE;
+      const accompaniedMessage = () => WA_MESSAGE;
+      const productMessage = () => WA_MESSAGE;
+      const genericMessage = () => WA_MESSAGE;
       function cardAvailabilityHtml(p) {
         const a = p.availability;
         if (!a || !a.total) return "";
@@ -1265,7 +1259,7 @@
       function selectProduct(p) {
         selectedProduct = p;
         const a = document.getElementById("stickyWa");
-        a.href = waLink(productMessage(p));
+        a.href = waLink();
         a.dataset.product = p.id;
         a.dataset.journeyType =
           p.family === "acompanadas" ? "accompanied" : "custom";
@@ -1392,7 +1386,7 @@
       })();
       document.querySelectorAll("[data-wa]").forEach((a) => {
         if (!a.dataset.product)
-          a.href = waLink(genericMessage(a.dataset.intent));
+          a.href = waLink();
         a.target = "_blank";
         a.rel = "noopener";
         a.addEventListener("click", () =>
