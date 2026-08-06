@@ -44,3 +44,14 @@ Las nueve miniaturas siguientes se sirven localmente en `landing-china-v3-gpt-pi
 | `map-glass-bridge.webp` | “Glass Bridge in Zhangjiajie China” · אביהוד | https://commons.wikimedia.org/wiki/File:Glass_Bridge_in_Zhangjiajie_China.jpg | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | Centro, 3:2 |
 | `map-bailong.webp` | “The Bailong Elevator” · CrunchLabs | https://commons.wikimedia.org/wiki/File:The_Bailong_Elevator.jpg | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | Superior, 3:2 |
 | `map-tianmen.webp` | “Tianmen Mountain Heaven Gate arch Zhangjiajie” · Lianguanlun | https://commons.wikimedia.org/wiki/File:Tianmen_Mountain_Heaven_Gate_arch_Zhangjiajie.jpg | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Centro, 3:2 |
+
+## Mini postales del mapa · Feria de Cantón
+
+Las dos miniaturas siguientes se agregaron para el bloque `#ferias` y siguen el mismo tratamiento: WebP de 360 × 240 px, relación 3:2. Se partió de la versión de 1280 px de cada archivo (no del original a resolución completa); el recorte y la conversión son modificaciones respecto de las obras enlazadas.
+
+| Archivo | Obra / autor | Fuente | Licencia | Recorte |
+| --- | --- | --- | --- | --- |
+| `map-canton-fair.webp` | “Aerial View, Canton Fair Complex 20230701-A” · Tim Wu | https://commons.wikimedia.org/wiki/File:Aerial_View,_Canton_Fair_Complex_20230701-A.jpg | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | Centrado en los pabellones, 3:2 |
+| `map-pearl-river.webp` | “珠江夜游 / Pearl River Night Cruise 2015.12” · rheins | https://commons.wikimedia.org/wiki/File:%E7%8F%A0%E6%B1%9F%E5%A4%9C%E6%B8%B8_-_Pearl_River_Night_Cruise_-_2015.12_-_panoramio.jpg | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) | Puente iluminado y barcos, 3:2 |
+
+`map-canton-fair.webp` se distribuye bajo CC BY-SA 4.0: al ser una obra derivada (recorte y conversión), debe mantenerse esa misma licencia y la atribución a Tim Wu.
