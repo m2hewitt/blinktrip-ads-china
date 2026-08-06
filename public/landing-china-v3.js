@@ -374,6 +374,54 @@
           particular:
             "Trenes bala, vuelos internos y auto privado según programa.",
         },
+        {
+          id: "feria-canton",
+          // Producto de negocios, no de ocio: no se personaliza, no lleva aéreo
+          // internacional y el precio es por fase. Vive en su propia sección
+          // (#ferias) para no contaminar el ancla "desde USD 3.269" ni la nota
+          // de precios "por persona en habitación doble" de #itinerarios.
+          family: "ferias",
+          customerName: "Feria de Cantón · Edición 140",
+          sourceName: "ChinaPass",
+          startDate: "2026-10-14",
+          dateWindow: "3 fases entre octubre y noviembre de 2026",
+          dateMode: "phases",
+          days: 7,
+          nights: 6,
+          priceUsd: 1499,
+          priceLabel: "USD",
+          priceUnit: "por fase",
+          priceBasis:
+            "precio por persona y por fase, impuestos incluidos, sin aéreo internacional",
+          route: "Cantón (6n)",
+          hook: "La mayor feria comercial del mundo, con acompañamiento de ChinaPass y logística resuelta para viajar a comprar.",
+          phases: [
+            { name: "Fase 1", dates: "14 al 20 de octubre de 2026" },
+            { name: "Fase 2", dates: "22 al 28 de octubre de 2026" },
+            { name: "Fase 3", dates: "30 de octubre al 5 de noviembre de 2026" },
+          ],
+          highlights: [
+            "Shuttle bus diario a la Feria",
+            "Hotel 5★ con ubicación preferencial",
+            "Navegación nocturna por el Río Perla",
+            "Seguro Terrawind",
+          ],
+          mapHighlights: [
+            "Complejo ferial de Cantón",
+            "Navegación nocturna por el Río Perla",
+          ],
+          includes:
+            "Hotel 5★ con ubicación preferencial y desayuno buffet · Shuttle bus diario a la Feria · Traslados privados · Cena de bienvenida grupal · Navegación nocturna por el Río Perla · Asistencia en cambio de divisas · Seguro Terrawind",
+          excludes: "aéreo internacional",
+          accompaniment: "Acompañamiento de ChinaPass durante la feria",
+          minPassengers: null,
+          // TODO(assets): reemplazar por img/canton.webp cuando esté disponible.
+          image: "hongkong",
+          whatsappIntent: "feria-canton",
+          badges: ["Feria de Cantón", "Río Perla"],
+          particular:
+            "Programa operado por ChinaPass. Cupos, tarifas y disponibilidad de cada fase se confirman al momento de reservar.",
+        },
       ];
       const CITY_COORDS = {
         Beijing: { x: 601.7, y: 113.0 },
@@ -383,6 +431,8 @@
         Chengdú: { x: 284.7, y: 392.9 },
         Chongqing: { x: 348.4, y: 423.2 },
         Shanghái: { x: 732.1, y: 373.1 },
+        // Proyección lineal del mapa: x = 25.707·lon − 2390.6, y = 1310.1 − 30·lat.
+        Cantón: { x: 521.1, y: 616.2 },
       };
       const CHINA_PATH =
         "M385.0,664.8L351.3,650.6L354.3,626.6L315.6,609.7L281.4,633.8L223.9,635.4L224.4,675.3L212.1,674.1L207.8,657.3L183.8,665.6L177.9,649.1L158.7,645.4L167.3,621.2L150.7,614.2L150.0,586.4L117.3,592.7L123.9,552.4L145.5,534.1L145.3,482.8L136.2,483.5L119.8,455.0L111.1,463.5L84.4,457.6L92.0,447.1L78.1,426.6L61.4,438.9L41.7,430.6L-26.3,478.1L-79.8,461.2L-105.7,490.5L-112.6,467.2L-180.1,472.7L-281.8,400.2L-305.7,408.9L-357.3,367.9L-366.3,370.9L-375.7,334.4L-354.4,335.0L-367.0,289.6L-360.8,280.9L-378.5,270.4L-384.6,245.6L-432.6,235.7L-441.3,210.5L-479.0,195.9L-459.8,188.4L-467.1,157.9L-493.7,151.8L-498.0,126.5L-467.1,95.5L-429.0,99.4L-413.8,79.3L-382.6,77.7L-328.2,48.7L-330.1,30.0L-314.1,15.2L-321.9,-31.4L-337.6,-36.5L-290.8,-50.5L-269.5,-43.8L-274.7,-57.9L-256.4,-105.6L-211.2,-94.9L-193.3,-101.9L-189.0,-137.5L-165.9,-145.9L-157.3,-162.7L-133.4,-164.9L-129.1,-146.6L-69.1,-120.3L-50.7,-87.0L-60.1,-55.8L-54.6,-45.9L13.3,-38.3L60.4,-18.3L87.0,28.4L218.4,33.9L308.1,62.1L354.1,41.4L447.4,26.8L486.9,-1.3L473.2,-21.0L486.0,-41.9L540.8,-38.3L554.4,-51.7L583.2,-53.7L628.4,-87.6L690.9,-90.1L655.6,-129.5L588.8,-120.6L579.2,-133.9L609.0,-184.7L639.6,-175.4L675.3,-192.0L672.8,-202.2L713.6,-252.9L711.2,-267.0L696.7,-273.6L748.0,-293.6L787.1,-296.4L839.6,-281.3L857.4,-260.9L888.5,-184.0L965.7,-155.8L976.1,-121.3L1015.1,-121.4L1061.9,-141.2L1073.6,-121.4L1058.6,-109.0L1031.5,-43.9L999.1,-49.8L976.7,-35.4L983.8,8.7L965.0,33.9L948.8,20.1L943.6,36.6L901.2,50.4L903.8,68.4L867.2,58.5L804.0,112.3L724.2,148.1L741.1,128.4L726.9,123.6L752.5,95.0L741.5,80.8L724.5,83.0L668.0,134.5L637.3,136.0L634.0,157.3L667.0,168.7L671.5,194.0L688.1,195.4L713.6,175.0L762.8,187.9L754.5,205.0L699.0,223.9L672.9,264.5L701.2,281.8L716.3,330.1L741.5,353.0L695.2,351.9L712.7,350.5L741.5,378.2L699.3,402.7L726.6,400.9L747.8,413.9L733.0,425.5L744.9,425.3L743.6,436.0L731.6,436.1L735.7,461.2L713.5,469.7L695.4,511.0L683.7,506.4L691.2,520.0L672.1,526.3L684.5,529.9L684.6,548.3L673.2,546.5L659.7,571.4L638.8,575.8L644.3,582.6L626.6,602.3L614.8,600.6L603.5,621.6L540.4,634.7L527.6,617.0L528.4,643.3L447.7,669.9L446.1,701.2L434.1,699.1L435.4,665.6L426.0,659.3L415.2,667.2L398.0,652.9Z";
@@ -463,8 +513,27 @@
           dx: 132,
           dy: 54,
         },
+        "Complejo ferial de Cantón": {
+          kind: "city",
+          city: "Cantón",
+          photo: "img/map-canton-fair.webp",
+          label: "Feria de Cantón",
+          dx: -170,
+          dy: -46,
+        },
+        "Navegación nocturna por el Río Perla": {
+          kind: "city",
+          city: "Cantón",
+          photo: "img/map-pearl-river.webp",
+          label: "Crucero por el Río Perla",
+          dx: -170,
+          dy: -46,
+        },
       };
       const MAP_PACKAGE_IDS = ["express", "guilin", "avatar"];
+      const FAIR_ID = "feria-canton";
+      // Ids con mini-mapa propio dentro del detalle (mobile).
+      const MINI_MAP_IDS = [...MAP_PACKAGE_IDS, FAIR_ID];
       function parseRouteStops(routeStr) {
         return routeStr.split("→").map((seg) => {
           const m = seg.trim().match(/^(.+?)\s*\((\d+)n/);
@@ -551,7 +620,7 @@
           '.pkg-mini-map[data-mini-map="' + productId + '"]',
         );
         if (!host || host.dataset.rendered === "1") return;
-        if (!MAP_PACKAGE_IDS.includes(productId)) return;
+        if (!MINI_MAP_IDS.includes(productId)) return;
         const { svg, overlay } = buildMiniMapSvg();
         host.appendChild(svg);
         host.dataset.rendered = "1";
@@ -638,6 +707,12 @@
           if (lines.length > 2) lines.splice(1, lines.length - 1, lines.slice(1).join(" "));
           return lines.length ? lines : [""];
         };
+        // Highlights without artwork render as a text-only callout instead of
+        // an empty photo tile, so a missing image reads as intentional.
+        const hasPhoto = items.some((item) => item.photo);
+        const photoWidth = hasPhoto ? metrics.photoWidth : 0;
+        const photoHeight = hasPhoto ? metrics.photoHeight : 0;
+        const gap = hasPhoto ? metrics.gap : 0;
         const labels = items.map((item) =>
           wrapByWidth(item.label || item.name, metrics.maxTextWidth),
         );
@@ -651,18 +726,18 @@
           metrics.maxTextWidth,
           Math.max(metrics.minTextWidth, Math.ceil(widestLine)),
         );
+        // Without the photo setting the row height, consecutive labels would
+        // sit almost flush against the divider — give them the gap back.
+        const rowGap = hasPhoto ? metrics.rowGap : metrics.rowGap * 2;
         const rowHeights = labels.map((lines) =>
-          Math.max(metrics.photoHeight, lines.length * metrics.lineHeight),
+          Math.max(photoHeight, lines.length * metrics.lineHeight),
         );
         const width =
-          metrics.padding * 2 +
-          metrics.photoWidth +
-          metrics.gap +
-          textWidth;
+          metrics.padding * 2 + photoWidth + gap + textWidth;
         const height =
           metrics.padding * 2 +
           rowHeights.reduce((sum, value) => sum + value, 0) +
-          metrics.rowGap * Math.max(0, items.length - 1);
+          rowGap * Math.max(0, items.length - 1);
         const centerX = anchor.x + dx;
         const centerY = anchor.y + dy;
         const x = centerX - width / 2;
@@ -701,49 +776,51 @@
         let rowY = metrics.padding;
         items.forEach((item, index) => {
           const rowHeight = rowHeights[index];
-          const photoY = rowY + (rowHeight - metrics.photoHeight) / 2;
+          const photoY = rowY + (rowHeight - photoHeight) / 2;
           const clipId = `map-photo-${mapRenderVersion}-${index}-${(item.name || "hito").replace(/[^a-z0-9]/gi, "")}`;
-          group.appendChild(
-            svgEl("rect", {
-              class: "route-highlight-photo-fallback",
-              x: metrics.padding,
-              y: photoY,
-              width: metrics.photoWidth,
-              height: metrics.photoHeight,
-              rx: metrics.radius / 2,
-              ry: metrics.radius / 2,
-            }),
-          );
-          const clipPath = svgEl("clipPath", { id: clipId });
-          clipPath.appendChild(
-            svgEl("rect", {
-              x: metrics.padding,
-              y: photoY,
-              width: metrics.photoWidth,
-              height: metrics.photoHeight,
-              rx: metrics.radius / 2,
-              ry: metrics.radius / 2,
-            }),
-          );
-          group.appendChild(clipPath);
-          if (item.photo)
+          if (hasPhoto) {
             group.appendChild(
-              svgEl("image", {
-                class: "route-highlight-photo",
-                href: item.photo,
+              svgEl("rect", {
+                class: "route-highlight-photo-fallback",
                 x: metrics.padding,
                 y: photoY,
-                width: metrics.photoWidth,
-                height: metrics.photoHeight,
-                preserveAspectRatio: "xMidYMid slice",
-                "clip-path": `url(#${clipId})`,
-                "aria-hidden": "true",
-                focusable: "false",
+                width: photoWidth,
+                height: photoHeight,
+                rx: metrics.radius / 2,
+                ry: metrics.radius / 2,
               }),
             );
+            const clipPath = svgEl("clipPath", { id: clipId });
+            clipPath.appendChild(
+              svgEl("rect", {
+                x: metrics.padding,
+                y: photoY,
+                width: photoWidth,
+                height: photoHeight,
+                rx: metrics.radius / 2,
+                ry: metrics.radius / 2,
+              }),
+            );
+            group.appendChild(clipPath);
+            if (item.photo)
+              group.appendChild(
+                svgEl("image", {
+                  class: "route-highlight-photo",
+                  href: item.photo,
+                  x: metrics.padding,
+                  y: photoY,
+                  width: photoWidth,
+                  height: photoHeight,
+                  preserveAspectRatio: "xMidYMid slice",
+                  "clip-path": `url(#${clipId})`,
+                  "aria-hidden": "true",
+                  focusable: "false",
+                }),
+              );
+          }
           const text = svgEl("text", {
             class: textClass,
-            x: metrics.padding + metrics.photoWidth + metrics.gap,
+            x: metrics.padding + photoWidth + gap,
           });
           const firstBaseline =
             rowY +
@@ -752,7 +829,7 @@
             metrics.fontSize * 0.34;
           labels[index].forEach((line, lineIndex) => {
             const tspan = svgEl("tspan", {
-              x: metrics.padding + metrics.photoWidth + metrics.gap,
+              x: metrics.padding + photoWidth + gap,
               y: firstBaseline + lineIndex * metrics.lineHeight,
             });
             tspan.textContent = line;
@@ -761,7 +838,7 @@
           group.appendChild(text);
           rowY += rowHeight;
           if (index < items.length - 1) {
-            const dividerY = rowY + metrics.rowGap / 2;
+            const dividerY = rowY + rowGap / 2;
             group.appendChild(
               svgEl("line", {
                 class: "route-highlight-divider",
@@ -771,7 +848,7 @@
                 y2: dividerY,
               }),
             );
-            rowY += metrics.rowGap;
+            rowY += rowGap;
           }
         });
         positioner.appendChild(group);
@@ -848,8 +925,11 @@
         minY -= padding;
         maxX += padding;
         maxY += padding;
-        const minWidth = isNarrow ? 620 : 650;
-        const minHeight = isNarrow ? 570 : 540;
+        // Single-destination products (no route to trace) can zoom in further:
+        // the multi-city floors would leave most of the frame empty.
+        const singleStop = pts.length < 2;
+        const minWidth = singleStop ? (isNarrow ? 430 : 450) : isNarrow ? 620 : 650;
+        const minHeight = singleStop ? (isNarrow ? 400 : 375) : isNarrow ? 570 : 540;
         let width = Math.max(maxX - minX, minWidth);
         let height = Math.max(maxY - minY, minHeight);
         const centerX = (minX + maxX) / 2;
@@ -1029,8 +1109,10 @@
       function activateMapCard(productId, { force = false, animate = true } = {}) {
         if (!force && activeMapProductId === productId) return;
         activeMapProductId = productId;
+        // Scoped to #routeMapCards: #ferias reuses .route-map-cards but drives
+        // its own map, so a global selector would cross-wire the two sections.
         document
-          .querySelectorAll(".route-map-cards .pkg-compact")
+          .querySelectorAll("#routeMapCards .pkg-compact")
           .forEach((card) => {
             const active = card.dataset.id === productId;
             card.classList.toggle("active", active);
@@ -1255,6 +1337,55 @@
             firstToggle.click();
         });
       }
+      // ── Feria de Cantón (#ferias) ──────────────────────────────────────
+      // Bloque aparte de #itinerarios: es un producto de negocios de fecha
+      // fija, no se personaliza y NO incluye aéreo internacional, así que no
+      // puede compartir ni el COMMON de inclusiones ni la nota de precios
+      // "por persona en habitación doble". Reusa las clases de tarjeta y
+      // mapa, pero maneja su propio SVG.
+      function fairCardHtml(p) {
+        const detailId = "detail-" + p.id;
+        const phases = p.phases
+          .map((f) => `<li><b>${f.name}:</b> ${f.dates}</li>`)
+          .join("");
+        return `<article class="pkg-compact pkg-compact--fair active" data-id="${p.id}"><button class="pkg-compact-select" type="button" data-map-select="${p.id}" aria-pressed="true" aria-label="Mostrar ${p.customerName} en el mapa"><img class="pkg-compact-thumb" src="img/${p.image}.webp" alt="" width="120" height="120" loading="lazy"><span class="pkg-compact-body"><span class="pkg-compact-name">${p.customerName}</span><span class="pkg-compact-chips"><span>Cantón / Guangzhou</span><span>3 fases</span></span><span class="pkg-compact-meta"><b>${p.nights} noches</b><span>${p.priceLabel} ${money(p.priceUsd)} ${p.priceUnit}</span></span><span class="pkg-flag">Sin aéreo internacional</span></span></button><div class="pkg-compact-actions"><button class="pkg-compact-info" data-toggle="${p.id}" aria-label="Ver detalle de ${p.customerName}" aria-expanded="false" aria-controls="${detailId}">Ver detalle ▾</button><a class="btn btn-wa btn-sm pkg-wa" data-wa data-product="${p.id}" data-journey-type="fair" data-cta-location="fair_card" href="${waLink(productMessage(p))}" target="_blank" rel="noopener"><svg class="btn-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.988-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.15-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.149-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>Consultar fase</a></div><div class="pkg-compact-detail pkg-detail" id="${detailId}" aria-hidden="true" hidden><div class="detail-inner"><div class="pkg-mini-map route-map-frame" data-mini-map="${p.id}" aria-hidden="true"></div><div class="detail-grid"><p><b>Sede:</b> Cantón / Guangzhou (${p.nights}n) · ${p.days} días</p><p><b>Por qué elegirlo:</b> ${p.hook}</p></div><div class="fair-phases"><b>Fases de la Edición 140:</b><ul>${phases}</ul></div><div class="highlights">${p.highlights.map((x) => `<span>✓ ${x}</span>`).join("")}</div><p><b>Acompañamiento:</b> ${p.accompaniment}</p><p><b>A tener en cuenta:</b> ${p.particular}</p><p class="fair-excludes"><b>No incluye:</b> ${p.excludes}. El vuelo desde Argentina se cotiza por separado.</p><p class="common">${p.includes}</p></div></div></article>`;
+      }
+      const fairCardsHost = document.getElementById("fairCards");
+      const fairProduct = PRODUCTS.find((p) => p.id === FAIR_ID);
+      if (fairCardsHost && fairProduct) {
+        fairCardsHost.innerHTML = fairCardHtml(fairProduct);
+        const fairFrame = document.getElementById("fairMapFrame");
+        let fairMap = null;
+        let fairResizeFrame = 0;
+        // Desktop only: the frame is display:none under 1024px, where the
+        // in-detail .pkg-mini-map takes over (same rule as #itinerarios).
+        const renderFairMap = (animate) => {
+          if (!fairFrame || !mqDesktopMap.matches) return;
+          if (!fairMap) {
+            fairMap = buildMiniMapSvg();
+            fairFrame.appendChild(fairMap.svg);
+          }
+          renderMapRoute(FAIR_ID, {
+            animate,
+            svg: fairMap.svg,
+            overlay: fairMap.overlay,
+          });
+        };
+        renderFairMap(false);
+        fairCardsHost
+          .querySelector("[data-map-select]")
+          .addEventListener("click", () => renderFairMap(true));
+        if ("ResizeObserver" in window && fairFrame) {
+          new ResizeObserver(() => {
+            if (!mqDesktopMap.matches) return;
+            cancelAnimationFrame(fairResizeFrame);
+            fairResizeFrame = requestAnimationFrame(() => renderFairMap(false));
+          }).observe(fairFrame);
+        }
+        mqDesktopMap.addEventListener("change", (e) => {
+          if (e.matches) renderFairMap(false);
+        });
+      }
       let selectedProduct = null;
       function selectProduct(p) {
         selectedProduct = p;
@@ -1262,7 +1393,11 @@
         a.href = waLink();
         a.dataset.product = p.id;
         a.dataset.journeyType =
-          p.family === "acompanadas" ? "accompanied" : "custom";
+          p.family === "acompanadas"
+            ? "accompanied"
+            : p.family === "ferias"
+              ? "fair"
+              : "custom";
       }
       document.addEventListener("click", (e) => {
         const toggle = e.target.closest("[data-toggle]");

@@ -2108,6 +2108,50 @@
         margin-top: 0;
       }
 
+      /* Feria de Cantón (#ferias): mismo componente de tarjeta que
+         #itinerarios, pero con la advertencia de "sin aéreo" siempre visible
+         para que el precio por fase no se lea como comparable. */
+      #ferias {
+        border-top: 1px solid var(--line);
+      }
+      /* Sede única (Cantón): sin recorrido que dibujar, un marco alto deja
+         medio mapa vacío. Formato apaisado y anclado arriba junto a la ficha. */
+      @media (min-width: 1024px) {
+        #fairMapFrame {
+          aspect-ratio: 1.5;
+          height: auto;
+          align-self: start;
+        }
+      }
+      .pkg-flag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.28rem;
+        margin-top: 0.4rem;
+        padding: 0.16rem 0.5rem;
+        border: 1px solid #f0d9a8;
+        border-radius: 999px;
+        background: #fff7e6;
+        color: #8a5a00;
+        font-size: 0.72rem;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+      .pkg-flag::before {
+        content: "✈";
+        text-decoration: line-through;
+      }
+      .fair-phases ul {
+        margin: 0.35rem 0 0;
+        padding-left: 1.05rem;
+      }
+      .fair-phases li {
+        margin-bottom: 0.2rem;
+      }
+      .fair-excludes {
+        color: #8a5a00;
+      }
+
       .pkg-compact {
         display: flex;
         align-items: center;
