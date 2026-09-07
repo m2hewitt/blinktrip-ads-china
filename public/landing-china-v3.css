@@ -20,6 +20,9 @@
         --header-h: 92px;
         --max: 1360px;
         --gutter: clamp(16px, 4vw, 24px);
+        --wa-bg: #087f46;
+        --wa-bg-hover: #066638;
+        --wa-fg: #fff;
         --space-1: 4px;
         --space-2: 8px;
         --space-3: 12px;
@@ -78,6 +81,11 @@
       @media (max-width: 759px) {
         .pad {
           padding: var(--section-y-mobile) 0;
+        }
+      }
+      @media (max-width: 899px) {
+        #itinerarios.pad {
+          padding-bottom: calc(var(--section-y-mobile) + 80px);
         }
       }
       .anchor-alias {
@@ -141,15 +149,32 @@
         transition: 0.18s;
         white-space: nowrap;
       }
-      .btn-primary,
-      .btn-wa {
+      .btn-primary {
         background: var(--p600);
         color: #fff;
       }
-      .btn-primary:hover,
-      .btn-wa:hover {
+      .btn-primary:hover {
         background: var(--p700);
         transform: translateY(-1px);
+      }
+      .btn-wa {
+        background: var(--wa-bg);
+        color: var(--wa-fg);
+      }
+      .btn-wa:hover {
+        background: var(--wa-bg-hover);
+        color: var(--wa-fg);
+        transform: translateY(-1px);
+      }
+      .btn-ghost[data-wa] {
+        background: #fff;
+        color: var(--wa-bg);
+        border-color: var(--wa-bg);
+      }
+      .btn-ghost[data-wa]:hover {
+        background: #fff;
+        color: var(--wa-bg-hover);
+        border-color: var(--wa-bg-hover);
       }
       .btn-ghost {
         border-color: var(--line);
@@ -1394,6 +1419,16 @@
         color: var(--p700);
         border-color: var(--p300);
       }
+      .pkg-custom-card .btn-ghost[data-wa] {
+        color: var(--wa-bg);
+        border-color: var(--wa-bg);
+        background: #fff;
+      }
+      .pkg-custom-card .btn-ghost[data-wa]:hover {
+        background: #fff;
+        color: var(--wa-bg-hover);
+        border-color: var(--wa-bg-hover);
+      }
       .pkg-custom-card .btn-ghost .btn-ico {
         width: 15px;
         height: 15px;
@@ -2318,30 +2353,35 @@
       .pkg-compact-actions .btn-wa {
         min-height: 44px;
         height: 46px;
-        background: var(--p600);
+        background: var(--wa-bg);
+        color: var(--wa-fg);
         gap: 7px;
         padding: 0.58rem 1rem;
+      }
+      .pkg-compact-actions .btn-wa:hover,
+      .pkg-compact-actions .btn-wa:focus-visible {
+        background: var(--wa-bg-hover);
+        color: var(--wa-fg);
       }
       .pkg-compact-actions .btn-wa .btn-ico {
         width: 15px;
         height: 15px;
       }
       /* El override .pkg-wa (más abajo, "REFINAMIENTOS FRONT-END") vuelve
-         ghost los WA dentro de cards para dar jerarquía a un solo CTA
-         dominante. En la tarjeta de itinerario el CTA violeta sólido ES el
-         dominante, así que se re-reafirma con más especificidad: fondo y
-         texto quedan atados (currentColor en el ícono), nunca violeta sobre
-         violeta. */
+         ghost los WA dentro de cards. En itinerario el CTA sólido ES el
+         dominante: se re-reafirma en verde WhatsApp, nunca marca sobre marca. */
       .pkg-compact-actions .btn-wa.pkg-wa,
       .pkg-compact-cta .btn-wa.pkg-wa {
-        background: var(--p600);
-        color: #fff;
+        background: var(--wa-bg);
+        color: var(--wa-fg);
         border-color: transparent;
       }
       .pkg-compact-actions .btn-wa.pkg-wa:hover,
-      .pkg-compact-cta .btn-wa.pkg-wa:hover {
-        background: var(--p700);
-        color: #fff;
+      .pkg-compact-cta .btn-wa.pkg-wa:hover,
+      .pkg-compact-actions .btn-wa.pkg-wa:focus-visible,
+      .pkg-compact-cta .btn-wa.pkg-wa:focus-visible {
+        background: var(--wa-bg-hover);
+        color: var(--wa-fg);
         border-color: transparent;
       }
       .pkg-compact-wa-note {
@@ -2388,7 +2428,6 @@
         margin: 0.2rem 0 0.1rem;
         padding: 0.75rem 1rem;
         white-space: normal;
-        background: var(--p600);
         gap: 7px;
       }
       .pkg-compact-cta .btn-ico {
@@ -2767,6 +2806,14 @@
         background: var(--p50);
         transform: translateY(-1px);
       }
+      .brand-actions .btn-wa {
+        background: var(--wa-bg);
+        color: var(--wa-fg);
+      }
+      .brand-actions .btn-wa:hover {
+        background: var(--wa-bg-hover);
+        color: var(--wa-fg);
+      }
       .brand-actions small {
         color: rgba(255, 255, 255, 0.66);
         font-size: 0.75rem;
@@ -2877,17 +2924,22 @@
         line-height: 1.2;
       }
       .sticky #stickyWa {
-        flex: none;
+        flex: 0 1 auto;
+        min-height: 44px;
+        height: auto;
         white-space: nowrap;
-        padding: 0.6rem 0.95rem;
-        font-size: 0.86rem;
+        line-height: 1.2;
+        text-align: center;
+        padding: 0.55rem 0.75rem;
+        font-size: 0.8rem;
         font-weight: 700;
-        box-shadow: 0 4px 14px rgba(158, 0, 196, 0.35);
+        box-shadow: none;
       }
       @media (max-width: 360px) {
         .sticky {
           padding: 0.5rem 0.5rem 0.5rem 0.7rem;
           gap: 0.45rem;
+          align-items: center;
         }
         .sticky-copy small {
           font-size: 0.65rem;
@@ -2896,8 +2948,13 @@
           font-size: 0.76rem;
         }
         .sticky #stickyWa {
-          padding: 0.55rem 0.7rem;
-          font-size: 0.8rem;
+          flex: 1 1 9.2rem;
+          max-width: 10.5rem;
+          min-width: 0;
+          min-height: 44px;
+          white-space: normal;
+          padding: 0.45rem 0.5rem;
+          font-size: 0.75rem;
         }
         .sticky #stickyWa .btn-ico {
           width: 1em;
@@ -2963,17 +3020,18 @@
         gap: 12px;
         padding: 12px;
         border-radius: 12px;
-        background: var(--p50);
+        background: #fff;
+        border: 1px solid var(--wa-bg);
         transition: background 0.15s;
       }
       .wa-contact:hover {
-        background: var(--p100);
+        background: color-mix(in srgb, var(--wa-bg) 8%, #fff);
       }
       .wa-contact-avatar {
         width: 44px;
         height: 44px;
         border-radius: 999px;
-        background: var(--p600);
+        background: var(--wa-bg);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2995,7 +3053,7 @@
         font-weight: 800;
       }
       .wa-contact-status {
-        color: var(--p600);
+        color: var(--wa-bg);
         font-size: 12px;
         font-weight: 600;
       }
@@ -3008,9 +3066,9 @@
         height: 58px;
         border: 0;
         border-radius: 999px;
-        background: var(--p600);
-        color: #fff;
-        box-shadow: 0 6px 24px rgba(158, 0, 196, 0.4);
+        background: var(--wa-bg);
+        color: var(--wa-fg);
+        box-shadow: 0 6px 24px rgba(8, 127, 70, 0.4);
         cursor: pointer;
         transition:
           transform 0.18s ease,
@@ -3018,7 +3076,8 @@
       }
       .wa-bubble:hover {
         transform: scale(1.08);
-        box-shadow: 0 10px 32px rgba(158, 0, 196, 0.5);
+        background: var(--wa-bg-hover);
+        box-shadow: 0 10px 32px rgba(6, 102, 56, 0.5);
       }
       .wa-bubble-icon {
         width: 30px;
@@ -3046,7 +3105,7 @@
         pointer-events: none;
       }
       .wa-bubble-label strong {
-        color: var(--p600);
+        color: var(--wa-bg);
       }
       @media (min-width: 900px) and (max-width: 1100px) {
         .wa-bubble-label {
@@ -3079,13 +3138,13 @@
          .pkg-wa está en las cards de itinerarios y de salidas acompañadas. */
       .pkg-wa {
         background: #fff;
-        color: var(--p700);
-        border-color: var(--line);
+        color: var(--wa-bg);
+        border-color: var(--wa-bg);
       }
       .pkg-wa:hover {
-        background: var(--p50);
-        border-color: var(--p300);
-        color: var(--p700);
+        background: #fff;
+        border-color: var(--wa-bg-hover);
+        color: var(--wa-bg-hover);
         transform: translateY(-1px);
       }
 
