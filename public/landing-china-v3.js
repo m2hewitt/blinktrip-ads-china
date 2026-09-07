@@ -1328,7 +1328,7 @@
         const waHref = waLink(itineraryMessage(p));
         const waCard = `<a class="btn btn-wa btn-sm pkg-wa" data-wa data-product="${p.id}" data-journey-type="custom" data-cta-location="itinerary_card" href="${waHref}" target="_blank" rel="noopener">${WA_ICO}Consultar viaje</a>`;
         const waDetail = `<a class="btn btn-wa pkg-wa" data-wa data-product="${p.id}" data-journey-type="custom" data-cta-location="itinerary_detail" href="${waHref}" target="_blank" rel="noopener">${WA_ICO}Consultar este viaje por WhatsApp</a>`;
-        return `<article class="pkg-compact" data-id="${p.id}"><button class="pkg-compact-select" type="button" data-map-select="${p.id}" aria-pressed="false" aria-label="Mostrar ${p.customerName} en el mapa"><img class="pkg-compact-thumb" src="img/${p.image}.webp" alt="" width="120" height="120" loading="lazy"><span class="pkg-compact-body"><span class="pkg-compact-name">${p.customerName}</span><span class="pkg-compact-kicker">${p.nights} noches · ${p.days} días</span><span class="pkg-compact-cities">${cities}</span><span class="pkg-compact-offer"><span class="pkg-compact-price">${p.priceLabel} ${money(p.priceUsd)}</span><span class="pkg-compact-basis">${priceBasisLine(p)}</span><span class="pkg-compact-flights">Vuelos internacionales incluidos</span></span></span></button><div class="pkg-compact-actions"><button class="pkg-compact-info" type="button" data-toggle="${p.id}" aria-label="Ver recorrido de ${p.customerName}" aria-expanded="false" aria-controls="${detailId}">Ver recorrido ⌄</button>${waCard}<span class="pkg-compact-wa-note">Te responde un asesor por WhatsApp</span></div><div class="pkg-compact-detail pkg-detail" id="${detailId}" aria-hidden="true" hidden><div class="detail-inner"><div class="detail-grid"><p><b>Por qué elegirlo:</b> ${p.hook}</p><p><b>Recorrido:</b> ${p.route}</p></div><div class="highlights">${p.highlights.map((x) => `<span><b class="hl-check">✓</b> ${x}</span>`).join("")}</div><p><b>Acompañamiento:</b> ${p.accompaniment}</p>${incluye}${noIncluye}<div class="pkg-mini-map route-map-frame" data-mini-map="${p.id}" aria-hidden="true"></div><div class="pkg-compact-cta"><p class="pkg-compact-cta-title">¿Te interesa este recorrido?</p><p class="pkg-compact-cta-lead">Podemos adaptar fechas, hoteles y duración.</p>${waDetail}<p class="pkg-compact-cta-note">Sin compromiso.</p></div></div></div></article>`;
+        return `<article class="pkg-compact" data-id="${p.id}"><button class="pkg-compact-select" type="button" data-map-select="${p.id}" aria-pressed="false" aria-label="Mostrar ${p.customerName} en el mapa"><img class="pkg-compact-thumb" src="img/${p.image}.webp" alt="" width="1200" height="800" loading="lazy"><span class="pkg-compact-body"><span class="pkg-compact-name">${p.customerName}</span><span class="pkg-compact-kicker">${p.nights} noches · ${p.days} días</span><span class="pkg-compact-cities">${cities}</span><span class="pkg-compact-offer"><span class="pkg-compact-price"><span class="pkg-compact-price-prefix">${p.priceLabel}</span><span class="pkg-compact-price-amount">${money(p.priceUsd)}</span></span><span class="pkg-compact-basis">${priceBasisLine(p)}</span><span class="pkg-compact-flights">Vuelos internacionales incluidos</span></span></span></button><div class="pkg-compact-actions"><button class="pkg-compact-info" type="button" data-toggle="${p.id}" aria-label="Ver recorrido de ${p.customerName}" aria-expanded="false" aria-controls="${detailId}"><span class="pkg-compact-info-label">Ver recorrido</span><span class="pkg-compact-info-chevron" aria-hidden="true">⌄</span></button>${waCard}<span class="pkg-compact-wa-note">Te responde un asesor por WhatsApp</span></div><div class="pkg-compact-detail pkg-detail" id="${detailId}" aria-hidden="true" hidden><div class="detail-inner"><div class="detail-grid"><p><b>Por qué elegirlo:</b> ${p.hook}</p><p><b>Recorrido:</b> ${p.route}</p></div><div class="highlights">${p.highlights.map((x) => `<span><b class="hl-check">✓</b> ${x}</span>`).join("")}</div><p><b>Acompañamiento:</b> ${p.accompaniment}</p>${incluye}${noIncluye}<div class="pkg-mini-map route-map-frame" data-mini-map="${p.id}" aria-hidden="true"></div><div class="pkg-compact-cta"><p class="pkg-compact-cta-title">¿Te interesa este recorrido?</p><p class="pkg-compact-cta-lead">Podemos adaptar fechas, hoteles y duración.</p>${waDetail}<p class="pkg-compact-cta-note">Sin compromiso.</p></div></div></div></article>`;
       }
       document.getElementById("routeMapCards").innerHTML =
         MAP_PACKAGE_IDS.map((id) => PRODUCTS.find((p) => p.id === id))
@@ -1490,6 +1490,7 @@
         const detail = document.getElementById("detail-" + p.id);
         if (!detail) return;
         const isFair = p.family === "ferias";
+        const card = toggle.closest(".pkg-compact");
         toggle.setAttribute("aria-expanded", String(open));
         toggle.setAttribute(
           "aria-label",
@@ -1499,17 +1500,34 @@
         );
         detail.hidden = !open;
         detail.setAttribute("aria-hidden", String(!open));
-        toggle.textContent = isFair
-          ? open
-            ? "Cerrar detalle ▴"
-            : "Ver detalle ▾"
-          : open
-            ? "Cerrar recorrido ⌃"
-            : "Ver recorrido ⌄";
+        const label = toggle.querySelector(".pkg-compact-info-label");
+        const chevron = toggle.querySelector(".pkg-compact-info-chevron");
+        if (label) {
+          label.textContent = open
+            ? isFair
+              ? "Cerrar detalle"
+              : "Cerrar recorrido"
+            : isFair
+              ? "Ver detalle"
+              : "Ver recorrido";
+        }
+        if (chevron) {
+          chevron.textContent = open ? "⌃" : "⌄";
+        }
+        if (!label && !chevron) {
+          toggle.textContent = isFair
+            ? open
+              ? "Cerrar detalle ▴"
+              : "Ver detalle ▾"
+            : open
+              ? "Cerrar recorrido ⌃"
+              : "Ver recorrido ⌄";
+        }
+        if (card) card.classList.toggle("is-expanded", open);
         btTrack("package_expand", { product_id: p.id, open, source });
         if (open) selectProduct(p);
         if (open && !mqDesktopMap.matches) renderMiniMapFor(p.id);
-        syncRouteCardSelectA11y(toggle.closest(".pkg-compact"));
+        syncRouteCardSelectA11y(card);
       }
       function togglePkgDetail(toggle, source) {
         const open = toggle.getAttribute("aria-expanded") !== "true";

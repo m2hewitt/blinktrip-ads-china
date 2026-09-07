@@ -2310,6 +2310,9 @@
         line-height: 1.2;
         color: var(--ink);
       }
+      .pkg-compact-price-prefix::after {
+        content: " ";
+      }
       .pkg-compact-basis,
       .pkg-compact-flights {
         font-size: 0.72rem;
@@ -2349,6 +2352,11 @@
         outline: 3px solid var(--p300);
         outline-offset: 3px;
         border-radius: 8px;
+      }
+      .pkg-compact-info-chevron {
+        flex: 0 0 auto;
+        margin-left: 0.35em;
+        line-height: 1;
       }
       .pkg-compact-actions .btn-wa {
         min-height: 44px;
@@ -2458,20 +2466,197 @@
         #routeMapCards .pkg-compact-actions > .pkg-compact-wa-note {
           display: none;
         }
-        #routeMapCards .pkg-compact-actions {
-          flex: 1 1 100%;
-          flex-direction: row;
+
+        #routeMapCards .pkg-compact {
+          flex-direction: column;
           flex-wrap: nowrap;
-          align-items: center;
-          margin-left: 0;
-          width: 100%;
+          align-items: stretch;
+          gap: 0;
+          padding: 0;
+          overflow: hidden;
+          border-width: 1px;
+          border-color: var(--line);
+          background: #fff;
+          box-shadow: none;
         }
-        #routeMapCards .pkg-compact-info {
+        #routeMapCards .pkg-compact:has(.pkg-compact-kicker) {
+          align-items: stretch;
+        }
+        #routeMapCards .pkg-compact:hover,
+        #routeMapCards .pkg-compact.active {
+          border-color: var(--line);
+          box-shadow: none;
+          background: #fff;
+        }
+        #routeMapCards .pkg-compact.is-expanded,
+        #routeMapCards .pkg-compact.is-expanded:hover,
+        #routeMapCards .pkg-compact.is-expanded.active {
+          border-color: var(--p700);
+          box-shadow: none;
+          background: #fff;
+        }
+        #routeMapCards .pkg-compact:has(:focus-visible) {
+          outline: 3px solid var(--p700);
+          outline-offset: 3px;
+        }
+        #routeMapCards .pkg-compact-select:focus-visible,
+        #routeMapCards .pkg-compact-info:focus-visible {
+          outline: none;
+        }
+
+        #routeMapCards .pkg-compact-select {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
           flex: 1 1 auto;
           width: 100%;
+          min-width: 0;
+        }
+        #routeMapCards .pkg-compact:has(.pkg-compact-kicker) .pkg-compact-select {
+          align-items: stretch;
+        }
+
+        #routeMapCards .pkg-compact-thumb {
+          width: 100%;
+          height: 112px;
+          border-radius: 0;
+          object-fit: cover;
+          flex: 0 0 auto;
+        }
+        #routeMapCards [data-id="express"] .pkg-compact-thumb {
+          object-position: center 30%;
+        }
+        #routeMapCards [data-id="guilin"] .pkg-compact-thumb {
+          object-position: center 42%;
+        }
+        #routeMapCards [data-id="avatar"] .pkg-compact-thumb {
+          object-position: center 68%;
+        }
+        @media (min-width: 600px) {
+          #routeMapCards .pkg-compact-thumb {
+            height: 168px;
+          }
+        }
+
+        #routeMapCards .pkg-compact-body {
+          display: block;
+          flex: 1 1 auto;
+          width: 100%;
+          min-width: 0;
+          padding: 12px 14px;
+        }
+        #routeMapCards .pkg-compact-name {
+          margin: 0 0 4px;
+          overflow: visible;
+          font-size: 18px;
+          font-weight: 800;
+          line-height: 1.2;
+          color: var(--ink);
+          white-space: normal;
+        }
+        #routeMapCards .pkg-compact-kicker {
+          margin: 0 0 4px;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 1.3;
+          color: var(--muted);
+        }
+        #routeMapCards .pkg-compact-cities {
+          display: block;
+          margin: 0;
+          overflow: visible;
+          -webkit-line-clamp: unset;
+          line-clamp: unset;
+          font-size: 13px;
+          font-weight: 600;
+          line-height: 1.35;
+          color: var(--p700);
+          white-space: normal;
+        }
+        #routeMapCards .pkg-compact-offer {
+          margin-top: 12px;
+          gap: 4px;
+        }
+        #routeMapCards .pkg-compact-price {
+          display: flex;
+          flex-wrap: nowrap;
+          align-items: baseline;
+          gap: 6px;
+          font-size: inherit;
+          font-weight: inherit;
+          line-height: 1.2;
+        }
+        #routeMapCards .pkg-compact-price-prefix::after {
+          content: none;
+        }
+        #routeMapCards .pkg-compact-price-prefix {
+          font-size: 13px;
+          font-weight: 600;
+          color: var(--ink);
+        }
+        #routeMapCards .pkg-compact-price-amount {
+          font-size: 24px;
+          font-weight: 800;
+          color: var(--ink);
+          font-variant-numeric: tabular-nums;
+        }
+        #routeMapCards .pkg-compact-basis {
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 1.35;
+          color: var(--muted);
+        }
+        #routeMapCards .pkg-compact-flights {
+          font-size: 12px;
+          font-weight: 600;
+          line-height: 1.35;
+          color: var(--ink);
+        }
+        #routeMapCards .pkg-compact-flights::before {
+          content: "✈";
+          display: inline-block;
+          margin-right: 4px;
+          font-size: 11px;
+        }
+
+        #routeMapCards .pkg-compact-actions {
+          display: flex;
+          flex: 0 0 auto;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          align-items: stretch;
+          align-self: stretch;
+          justify-content: stretch;
+          gap: 0;
+          margin: 0;
+          width: 100%;
+          border-top: 1px solid var(--p200);
+          background: var(--p50);
+        }
+        #routeMapCards .pkg-compact:has(.pkg-compact-kicker) .pkg-compact-actions {
+          align-self: stretch;
+          justify-content: stretch;
+        }
+        #routeMapCards .pkg-compact-info {
+          display: flex;
+          flex: 1 1 auto;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          min-height: 46px;
           margin-right: 0;
-          justify-content: flex-start;
-          min-height: 44px;
+          padding: 12px 14px;
+          font-size: 13px;
+          font-weight: 600;
+        }
+        #routeMapCards .pkg-compact-info-chevron {
+          margin-left: 12px;
+        }
+        #routeMapCards .pkg-compact-detail {
+          padding-inline: 20px;
+        }
+        #routeMapCards .pkg-compact-detail .detail-inner {
+          padding-block: 16px 20px;
         }
       }
 
