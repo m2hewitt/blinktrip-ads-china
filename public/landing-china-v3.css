@@ -3171,48 +3171,40 @@
         pointer-events: auto;
       }
       .wa-popup-header {
-        background: var(--p600);
-        padding: 16px 18px;
-      }
-      .wa-popup-header .wa-title {
-        color: #fff;
-        font-size: 15px;
-        font-weight: 800;
-        margin: 0 0 4px;
-      }
-      .wa-popup-header .wa-intro {
-        color: rgba(255, 255, 255, 0.85);
-        font-size: 12px;
-        line-height: 1.5;
-        margin: 0;
-      }
-      .wa-popup-body {
-        padding: 16px;
-      }
-      .wa-notice {
-        color: var(--muted);
-        font-size: 12px;
-        margin: 0 0 12px;
-        font-weight: 600;
-      }
-      .wa-contact {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 12px;
-        border-radius: 12px;
-        background: #fff;
-        border: 1px solid var(--wa-bg);
-        transition: background 0.15s;
+        gap: 11px;
+        background: var(--wa-bg);
+        padding: 13px 16px;
       }
-      .wa-contact:hover {
-        background: color-mix(in srgb, var(--wa-bg) 8%, #fff);
+      .wa-person-media {
+        position: relative;
+        flex-shrink: 0;
+      }
+      .wa-person-badge {
+        position: absolute;
+        right: -3px;
+        bottom: -3px;
+        width: 19px;
+        height: 19px;
+        border-radius: 999px;
+        background: #fff;
+        color: var(--wa-bg);
+        border: 2px solid var(--wa-bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .wa-person-badge svg {
+        width: 11px;
+        height: 11px;
       }
       .wa-contact-avatar {
-        width: 44px;
-        height: 44px;
+        width: 42px;
+        height: 42px;
         border-radius: 999px;
-        background: var(--wa-bg);
+        background: var(--wa-bg-hover);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.55);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -3229,14 +3221,57 @@
         display: block;
       }
       .wa-contact-name {
-        color: var(--ink);
-        font-size: 14px;
+        margin: 0;
+        color: #fff;
+        font-size: 15px;
         font-weight: 800;
+        line-height: 1.2;
       }
       .wa-contact-status {
-        color: var(--wa-bg);
+        margin: 2px 0 0;
+        color: rgba(255, 255, 255, 0.85);
         font-size: 12px;
         font-weight: 600;
+        line-height: 1.2;
+      }
+      .wa-popup-body {
+        padding: 14px 16px 16px;
+      }
+      .wa-notice {
+        color: var(--body);
+        font-size: 13px;
+        line-height: 1.45;
+        margin: 0 0 12px;
+        font-weight: 600;
+      }
+      .wa-contact {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 11px 14px;
+        border-radius: 12px;
+        background: var(--wa-bg);
+        color: var(--wa-fg);
+        font-size: 14px;
+        font-weight: 800;
+        line-height: 1.2;
+        text-align: center;
+        box-shadow: 0 4px 14px rgba(8, 127, 70, 0.28);
+        transition:
+          background 0.15s,
+          box-shadow 0.15s;
+      }
+      .wa-contact:hover {
+        background: var(--wa-bg-hover);
+        color: var(--wa-fg);
+        box-shadow: 0 6px 18px rgba(6, 102, 56, 0.36);
+      }
+      .wa-contact-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
       }
       .wa-bubble {
         position: relative;
