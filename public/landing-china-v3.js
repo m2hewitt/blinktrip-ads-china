@@ -192,7 +192,7 @@
           days: 6,
           nights: 5,
           priceUsd: 3269,
-          priceLabel: "USD",
+          priceLabel: "Desde USD",
           priceBasis: "precio de referencia por persona, en habitación doble",
           route: "Beijing (3n) → Shanghái (2n)",
           hook: "Lo esencial de China en seis días y el menor precio entre los itinerarios de referencia.",
@@ -212,7 +212,8 @@
           image: "great-wall-hero",
           whatsappIntent: "express",
           badges: ["Gran Muralla", "Ciudad Prohibida"],
-          particular:
+          particular: "",
+          noIncluye:
             "Opcionales no incluidos: pato laqueado, acrobacia ERA y tren Maglev.",
         },
         {
@@ -226,7 +227,7 @@
           days: 11,
           nights: 10,
           priceUsd: 4455,
-          priceLabel: "USD",
+          priceLabel: "Desde USD",
           priceBasis: "precio de referencia por persona, en habitación doble",
           route:
             "Beijing (3n) → Xi’an (2n) → Guilin (3n, con Longji y Yangshuo) → Shanghái (2n)",
@@ -248,8 +249,8 @@
           image: "guilin",
           whatsappIntent: "guilin",
           badges: ["Longji", "Río Li"],
-          particular:
-            "Incluye tren bala y vuelos internos indicados. Opcionales del programa no incluidos.",
+          particular: "Tren bala y vuelos internos indicados.",
+          noIncluye: "Opcionales del programa no incluidos.",
         },
         {
           id: "avatar",
@@ -262,7 +263,7 @@
           days: 11,
           nights: 10,
           priceUsd: 4710,
-          priceLabel: "USD",
+          priceLabel: "Desde USD",
           priceBasis: "precio de referencia por persona, en habitación doble",
           route: "Beijing (3n) → Xi’an (2n) → Zhangjiajie (3n) → Shanghái (2n)",
           hook: "Un circuito de aventura centrado en Zhangjiajie y sus paisajes de Avatar.",
@@ -284,7 +285,8 @@
           image: "zhangjiajie",
           whatsappIntent: "avatar",
           badges: ["Puente de Cristal", "Monte Tianmen"],
-          particular:
+          particular: "",
+          noIncluye:
             "El tren de la Galería de Diez Millas se abona por separado.",
         },
         {
@@ -1261,20 +1263,36 @@
         FEATURED_ACCOMPANIED.map((id) => PRODUCTS.find((p) => p.id === id))
           .map(accompaniedCardHtml)
           .join("");
+      const WA_ICO =
+        '<svg class="btn-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.988-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.15-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.149-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>';
+      function priceBasisLine(p) {
+        const b = String(p.priceBasis || "");
+        if (/por persona/i.test(b) && /habitaci[oó]n doble/i.test(b)) {
+          return "Por persona en habitación doble";
+        }
+        return b;
+      }
       function cardHtmlCompact(p) {
         const detailId = "detail-" + p.id;
-        const stops = parseRouteStops(p.route);
-        const chipMore =
-          stops.length > 2
-            ? `<span class="chip-more">+${stops.length - 2}</span>`
-            : "";
-        return `<article class="pkg-compact" data-id="${p.id}"><button class="pkg-compact-select" type="button" data-map-select="${p.id}" aria-pressed="false" aria-label="Mostrar ${p.customerName} en el mapa"><img class="pkg-compact-thumb" src="img/${p.image}.webp" alt="" width="120" height="120" loading="lazy"><span class="pkg-compact-body"><span class="pkg-compact-name">${p.customerName}</span><span class="pkg-compact-chips">${stops.map((s) => `<span>${s.city}</span>`).join("")}${chipMore}</span><span class="pkg-compact-meta"><b>${p.nights} noches</b><span>${p.priceLabel} ${money(p.priceUsd)}</span></span></span></button><div class="pkg-compact-actions"><button class="pkg-compact-info" data-toggle="${p.id}" aria-label="Ver detalle de ${p.customerName}" aria-expanded="false" aria-controls="${detailId}">Ver detalle ▾</button><a class="btn btn-wa btn-sm pkg-wa" data-wa data-product="${p.id}" data-journey-type="custom" data-cta-location="itinerary_card" href="${waLink(itineraryMessage(p))}" target="_blank" rel="noopener"><svg class="btn-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.988-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.15-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.149-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>Personalizar</a></div><div class="pkg-compact-detail pkg-detail" id="${detailId}" aria-hidden="true" hidden><div class="detail-inner"><div class="pkg-mini-map route-map-frame" data-mini-map="${p.id}" aria-hidden="true"></div><div class="detail-grid"><p><b>Recorrido:</b> ${p.route}</p><p><b>Por qué elegirlo:</b> ${p.hook}</p></div><div class="highlights">${p.highlights.map((x) => `<span>✓ ${x}</span>`).join("")}</div><p><b>Acompañamiento:</b> ${p.accompaniment}</p><p><b>Incluye en particular:</b> ${p.particular}</p><p class="common">${COMMON}</p></div></div></article>`;
+        const cities = parseRouteStops(p.route)
+          .map((s) => s.city)
+          .join(" · ");
+        const incluye = p.particular
+          ? `<p><b>Incluye:</b> ${p.particular}</p><p class="common">${COMMON}</p>`
+          : `<p><b>Incluye:</b> ${COMMON}</p>`;
+        const noIncluye = p.noIncluye
+          ? `<p><b>No incluye / opcionales:</b> ${p.noIncluye}</p>`
+          : "";
+        const waHref = waLink(itineraryMessage(p));
+        const waCard = `<a class="btn btn-wa btn-sm pkg-wa" data-wa data-product="${p.id}" data-journey-type="custom" data-cta-location="itinerary_card" href="${waHref}" target="_blank" rel="noopener">${WA_ICO}Consultar viaje</a>`;
+        const waDetail = `<a class="btn btn-wa pkg-wa" data-wa data-product="${p.id}" data-journey-type="custom" data-cta-location="itinerary_detail" href="${waHref}" target="_blank" rel="noopener">${WA_ICO}Consultar este viaje por WhatsApp</a>`;
+        return `<article class="pkg-compact" data-id="${p.id}"><button class="pkg-compact-select" type="button" data-map-select="${p.id}" aria-pressed="false" aria-label="Mostrar ${p.customerName} en el mapa"><img class="pkg-compact-thumb" src="img/${p.image}.webp" alt="" width="120" height="120" loading="lazy"><span class="pkg-compact-body"><span class="pkg-compact-name">${p.customerName}</span><span class="pkg-compact-kicker">${p.nights} noches · ${p.days} días</span><span class="pkg-compact-cities">${cities}</span><span class="pkg-compact-offer"><span class="pkg-compact-price">${p.priceLabel} ${money(p.priceUsd)}</span><span class="pkg-compact-basis">${priceBasisLine(p)}</span><span class="pkg-compact-flights">Vuelos internacionales incluidos</span></span></span></button><div class="pkg-compact-actions"><button class="pkg-compact-info" data-toggle="${p.id}" aria-label="Ver recorrido de ${p.customerName}" aria-expanded="false" aria-controls="${detailId}">Ver recorrido ⌄</button>${waCard}<span class="pkg-compact-wa-note">Te responde un asesor por WhatsApp</span></div><div class="pkg-compact-detail pkg-detail" id="${detailId}" aria-hidden="true" hidden><div class="detail-inner"><div class="detail-grid"><p><b>Por qué elegirlo:</b> ${p.hook}</p><p><b>Recorrido:</b> ${p.route}</p></div><div class="highlights">${p.highlights.map((x) => `<span>✓ ${x}</span>`).join("")}</div><p><b>Acompañamiento:</b> ${p.accompaniment}</p>${incluye}${noIncluye}<div class="pkg-mini-map route-map-frame" data-mini-map="${p.id}" aria-hidden="true"></div><div class="pkg-compact-cta"><p class="pkg-compact-cta-title">¿Te interesa este recorrido?</p><p class="pkg-compact-cta-lead">Podemos adaptar fechas, hoteles y duración.</p>${waDetail}<p class="pkg-compact-cta-note">Sin compromiso.</p></div></div></div></article>`;
       }
       document.getElementById("routeMapCards").innerHTML =
         MAP_PACKAGE_IDS.map((id) => PRODUCTS.find((p) => p.id === id))
           .map(cardHtmlCompact)
           .join("") +
-        `<div class="pkg-custom-card"><div class="pkg-custom-body"><div class="pkg-custom-meta"><span class="pkg-name">¿Querés combinar ideas de varios recorridos?</span></div><p class="pkg-custom-note">Contanos qué te interesa y evaluamos una propuesta según fechas y disponibilidad.</p></div><div class="pkg-actions"><a class="btn btn-wa btn-sm" data-wa data-intent="custom-itineraries" data-cta-location="itinerary_custom_card" href="${waLink(genericMessage("custom-itineraries"))}"><svg class="btn-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.988-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.15-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.149-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>Armar mi viaje</a></div></div>`;
+        `<div class="pkg-custom-card"><div class="pkg-custom-body"><div class="pkg-custom-meta"><span class="pkg-name">¿Querés combinar ideas de varios recorridos?</span></div><p class="pkg-custom-note">Contanos qué te interesa y evaluamos una propuesta según fechas y disponibilidad.</p></div><div class="pkg-actions"><a class="btn btn-ghost btn-sm" data-wa data-intent="custom-itineraries" data-journey-type="custom" data-cta-location="itinerary_custom_card" href="${waLink(genericMessage("custom-itineraries"))}" target="_blank" rel="noopener">${WA_ICO}Armar mi viaje</a></div></div>`;
       document
         .querySelectorAll(".route-map-cards .pkg-compact")
         .forEach((card) => {
@@ -1286,7 +1304,11 @@
               // produce ningún cambio visible: es el dead click que reporta
               // Clarity. Abrimos el detalle, que ya trae su propio mini-mapa.
               if (!mqDesktopMap.matches) {
-                card.querySelector("[data-toggle]")?.click();
+                const toggle = card.querySelector("[data-toggle]");
+                if (toggle) {
+                  toggle.dataset.expandSource = "card";
+                  toggle.click();
+                }
                 return;
               }
               activateMapCard(card.dataset.id);
@@ -1331,22 +1353,6 @@
             });
         }
       });
-      // Mobile: auto-open the first itinerary card so a route map is visible on
-      // arrival (keeps the selector↔map relationship intact without scrolling).
-      if (!mqDesktopMap.matches) {
-        // Defer to next frame: run after the delegated click handler (defined
-        // further below) is registered and after first layout.
-        requestAnimationFrame(() => {
-          const firstToggle = document.querySelector(
-            "#routeMapCards .pkg-compact [data-toggle]",
-          );
-          if (
-            firstToggle &&
-            firstToggle.getAttribute("aria-expanded") !== "true"
-          )
-            firstToggle.click();
-        });
-      }
       // ── Feria de Cantón (#ferias) ──────────────────────────────────────
       // Bloque aparte de #itinerarios: es un producto de negocios de fecha
       // fija, no se personaliza y NO incluye aéreo internacional, así que no
@@ -1388,7 +1394,11 @@
             // Mismo dead click que en #itinerarios: bajo 1024px renderFairMap()
             // sale por su propia guarda de mqDesktopMap y el tap no hace nada.
             if (!mqDesktopMap.matches) {
-              fairCardsHost.querySelector("[data-toggle]")?.click();
+              const fairToggle = fairCardsHost.querySelector("[data-toggle]");
+              if (fairToggle) {
+                fairToggle.dataset.expandSource = "card";
+                fairToggle.click();
+              }
               return;
             }
             renderFairMap(true);
@@ -1430,15 +1440,27 @@
           const p = PRODUCTS.find((x) => x.id === toggle.dataset.toggle);
           const detail = document.getElementById("detail-" + p.id);
           const open = toggle.getAttribute("aria-expanded") !== "true";
+          const isFair = p.family === "ferias";
+          const tagged = toggle.dataset.expandSource;
+          const source = tagged || (e.isTrusted ? "user" : "auto");
+          if (tagged) delete toggle.dataset.expandSource;
           toggle.setAttribute("aria-expanded", String(open));
           toggle.setAttribute(
             "aria-label",
-            (open ? "Cerrar" : "Ver") + " detalle de " + p.customerName,
+            (open ? "Cerrar" : "Ver") +
+              (isFair ? " detalle de " : " recorrido de ") +
+              p.customerName,
           );
           detail.hidden = !open;
           detail.setAttribute("aria-hidden", String(!open));
-          toggle.textContent = open ? "Cerrar detalle ▴" : "Ver detalle ▾";
-          btTrack("package_expand", { product_id: p.id, open });
+          toggle.textContent = isFair
+            ? open
+              ? "Cerrar detalle ▴"
+              : "Ver detalle ▾"
+            : open
+              ? "Cerrar recorrido ⌃"
+              : "Ver recorrido ⌄";
+          btTrack("package_expand", { product_id: p.id, open, source });
           if (open) selectProduct(p);
           if (open && !mqDesktopMap.matches) renderMiniMapFor(p.id);
         }
@@ -1446,6 +1468,14 @@
         if (productLink) {
           const p = PRODUCTS.find((x) => x.id === productLink.dataset.product);
           if (p) selectProduct(p);
+        }
+        const wa = e.target.closest("[data-wa]");
+        if (wa) {
+          btTrack("wa_click", {
+            product_id: wa.dataset.product || null,
+            cta_location: wa.dataset.ctaLocation || "unknown",
+            journey_type: wa.dataset.journeyType || null,
+          });
         }
       });
       const REVIEWS = [
