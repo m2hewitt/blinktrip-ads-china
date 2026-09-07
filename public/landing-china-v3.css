@@ -1252,11 +1252,20 @@
         gap: 0.4rem;
       }
       .highlights span {
-        background: #fff;
-        border: 1px solid var(--line);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.32rem;
+        background: var(--p50);
+        border: 1px solid var(--p200);
         border-radius: 999px;
-        padding: 0.35rem 0.6rem;
+        padding: 0.35rem 0.7rem;
         font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .highlights .hl-check {
+        color: var(--p600);
+        font-weight: 800;
       }
       .common {
         color: var(--soft);
@@ -1301,50 +1310,45 @@
         margin: 1.4rem 0 0;
         display: flex;
         align-items: center;
-        gap: 1.15rem;
+        gap: 1rem;
         flex-wrap: wrap;
-        padding: 1.1rem 1.3rem;
-        border: 1.5px solid var(--p700);
-        border-radius: 16px;
-        background: linear-gradient(135deg, var(--p600), var(--p700));
-        box-shadow: 0 10px 32px rgba(158, 0, 196, 0.28);
+        padding: 0.85rem 1rem;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface);
+        box-shadow: none;
       }
       .pkg-custom-card .pkg-thumb {
         flex: 0 0 auto;
-        width: 104px;
-        height: 88px;
-        border-radius: 10px;
+        width: 72px;
+        height: 60px;
+        border-radius: 8px;
         object-fit: cover;
       }
       .pkg-custom-card .pkg-thumb-plane {
         display: grid;
         place-items: center;
-        border-radius: 14px;
-        background:
-          radial-gradient(
-            120% 120% at 30% 20%,
-            rgba(255, 255, 255, 0.28),
-            rgba(255, 255, 255, 0.08) 60%,
-            rgba(255, 255, 255, 0.04)
-          );
-        border: 1px solid rgba(255, 255, 255, 0.35);
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.4),
-          0 6px 18px rgba(25, 25, 25, 0.18);
+        border-radius: 10px;
+        background: var(--p50);
+        border: 1px solid var(--p200);
+        box-shadow: none;
       }
       .pkg-custom-card .pkg-thumb-plane svg {
-        width: 46px;
-        height: 46px;
-        fill: #fff;
+        width: 28px;
+        height: 28px;
+        fill: var(--p600);
         transform: rotate(-8deg);
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.22));
+        filter: none;
       }
       .pkg-custom-card .pkg-custom-body {
         flex: 1 1 260px;
         min-width: 0;
       }
       .pkg-custom-card .pkg-name {
-        color: #fff;
+        color: var(--ink);
+        font-size: 0.84rem;
+        font-weight: 700;
+        margin: 0;
       }
       .pkg-custom-card .pkg-custom-meta {
         display: flex;
@@ -1357,12 +1361,12 @@
         flex: 0 0 auto;
         padding: 0;
         background: transparent;
-        color: rgba(255, 255, 255, 0.82);
+        color: var(--muted);
         border: 0;
         border-radius: 0;
         font-style: italic;
-        font-weight: 600;
-        font-size: 0.72rem;
+        font-weight: 500;
+        font-size: 0.7rem;
       }
       .pkg-custom-card .tag::before {
         content: "·";
@@ -1371,28 +1375,32 @@
         opacity: 0.5;
       }
       .pkg-custom-card .pkg-custom-note {
-        margin: 0.35rem 0 0;
-        font-size: 0.88rem;
-        line-height: 1.5;
-        color: rgba(255, 255, 255, 0.88);
+        margin: 0.22rem 0 0;
+        font-size: 0.78rem;
+        line-height: 1.45;
+        color: var(--muted);
         max-width: 56ch;
       }
-      .pkg-custom-card .btn-wa {
+      .pkg-custom-card .btn-ghost {
+        min-height: 44px;
         background: #fff;
         color: var(--p700);
-        border-color: #fff;
-        box-shadow: 0 5px 14px rgba(25, 25, 25, 0.18);
+        border-color: var(--p200);
+        box-shadow: none;
+        font-weight: 600;
       }
-      .pkg-custom-card .btn-wa:hover {
+      .pkg-custom-card .btn-ghost:hover {
         background: var(--p50);
         color: var(--p700);
+        border-color: var(--p300);
       }
-      .pkg-custom-card .btn-wa:focus-visible {
-        outline-color: #fff;
+      .pkg-custom-card .btn-ghost .btn-ico {
+        width: 15px;
+        height: 15px;
       }
       @media (max-width: 640px) {
         .pkg-custom-card {
-          padding: 1.1rem;
+          padding: 0.85rem;
         }
         .pkg-custom-card .btn {
           width: 100%;
@@ -2086,10 +2094,6 @@
           grid-template-columns: minmax(400px, 0.85fr) minmax(0, 1.15fr);
           column-gap: var(--space-6);
         }
-        .route-map-frame {
-          aspect-ratio: auto;
-          height: 100%;
-        }
       }
       .route-map-cards {
         display: flex;
@@ -2113,15 +2117,6 @@
          para que el precio por fase no se lea como comparable. */
       #ferias {
         border-top: 1px solid var(--line);
-      }
-      /* Sede única (Cantón): sin recorrido que dibujar, un marco alto deja
-         medio mapa vacío. Formato apaisado y anclado arriba junto a la ficha. */
-      @media (min-width: 1024px) {
-        #fairMapFrame {
-          aspect-ratio: 1.5;
-          height: auto;
-          align-self: start;
-        }
       }
       .pkg-flag {
         display: inline-flex;
@@ -2166,6 +2161,9 @@
           box-shadow 160ms ease,
           transform 160ms ease;
         flex-wrap: wrap;
+      }
+      .pkg-compact:has(.pkg-compact-kicker) {
+        align-items: flex-start;
       }
       .pkg-compact:hover {
         border-color: var(--p200);
@@ -2214,6 +2212,31 @@
         margin: 0 0 0.32rem;
         line-height: 1.2;
       }
+      .pkg-compact:has(.pkg-compact-kicker) .pkg-compact-select {
+        align-items: flex-start;
+      }
+      .pkg-compact:has(.pkg-compact-kicker) .pkg-compact-name {
+        margin-bottom: 0.1rem;
+      }
+      .pkg-compact-kicker {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--muted);
+        line-height: 1.3;
+      }
+      .pkg-compact-cities {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+        margin: 0.32rem 0 0.4rem;
+        font-size: 0.78rem;
+        font-weight: 600;
+        line-height: 1.35;
+        color: var(--p700);
+      }
       .pkg-compact-chips {
         display: flex;
         flex-wrap: wrap;
@@ -2229,17 +2252,6 @@
         border-radius: 999px;
         padding: 0.14rem 0.48rem;
       }
-      .pkg-compact-chips .chip-more {
-        display: none;
-      }
-      @media (max-width: 599px) {
-        .pkg-compact-chips span:not(.chip-more):nth-child(n + 3) {
-          display: none;
-        }
-        .pkg-compact-chips .chip-more {
-          display: inline-flex;
-        }
-      }
       .pkg-compact-meta {
         display: flex;
         align-items: baseline;
@@ -2251,36 +2263,144 @@
         color: var(--ink);
         font-size: 0.92rem;
       }
+      .pkg-compact-offer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.08rem;
+      }
+      .pkg-compact-price {
+        font-size: 1.08rem;
+        font-weight: 800;
+        line-height: 1.2;
+        color: var(--ink);
+      }
+      .pkg-compact-basis,
+      .pkg-compact-flights {
+        font-size: 0.72rem;
+        font-weight: 500;
+        line-height: 1.35;
+        color: var(--muted);
+      }
       .pkg-compact-actions {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        gap: 0.4rem;
+        gap: 0.25rem;
         flex: 0 0 auto;
         margin-left: auto;
       }
+      .pkg-compact:has(.pkg-compact-kicker) .pkg-compact-actions {
+        align-self: stretch;
+        justify-content: flex-end;
+      }
       .pkg-compact-info {
+        display: inline-flex;
+        align-items: center;
         background: none;
         border: none;
-        min-height: 28px;
+        min-height: 44px;
+        min-width: 44px;
         font-size: 0.78rem;
-        font-weight: 700;
+        font-weight: 600;
         color: var(--p700);
         cursor: pointer;
-        padding: 0.3rem 0.25rem;
-        text-decoration: underline;
-        text-underline-offset: 2px;
+        padding: 0.5rem 0.4rem;
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+      .pkg-compact-info:focus-visible {
+        outline: 3px solid var(--p300);
+        outline-offset: 3px;
+        border-radius: 8px;
+      }
+      .pkg-compact-actions .btn-wa {
+        min-height: 44px;
+        height: 46px;
+        background: var(--p600);
+        gap: 7px;
+        padding: 0.58rem 1rem;
+      }
+      .pkg-compact-actions .btn-wa .btn-ico {
+        width: 15px;
+        height: 15px;
+      }
+      /* El override .pkg-wa (más abajo, "REFINAMIENTOS FRONT-END") vuelve
+         ghost los WA dentro de cards para dar jerarquía a un solo CTA
+         dominante. En la tarjeta de itinerario el CTA violeta sólido ES el
+         dominante, así que se re-reafirma con más especificidad: fondo y
+         texto quedan atados (currentColor en el ícono), nunca violeta sobre
+         violeta. */
+      .pkg-compact-actions .btn-wa.pkg-wa,
+      .pkg-compact-cta .btn-wa.pkg-wa {
+        background: var(--p600);
+        color: #fff;
+        border-color: transparent;
+      }
+      .pkg-compact-actions .btn-wa.pkg-wa:hover,
+      .pkg-compact-cta .btn-wa.pkg-wa:hover {
+        background: var(--p700);
+        color: #fff;
+        border-color: transparent;
+      }
+      .pkg-compact-wa-note {
+        flex-basis: 100%;
+        font-size: 0.68rem;
+        font-weight: 500;
+        line-height: 1.3;
+        color: var(--muted);
+        text-align: right;
       }
       .pkg-compact-detail {
         flex-basis: 100%;
         width: 100%;
         padding-inline: 0;
       }
+      .pkg-compact-detail .pkg-mini-map {
+        margin: var(--space-3) 0 0;
+      }
+      .pkg-compact-cta {
+        display: grid;
+        gap: 0.28rem;
+        margin-top: 0.35rem;
+        padding-top: 0.9rem;
+        border-top: 1px solid var(--line);
+      }
+      .pkg-compact-cta-title {
+        margin: 0;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .pkg-compact-cta-lead,
+      .pkg-compact-cta-note {
+        margin: 0;
+        font-size: 0.8rem;
+        font-weight: 500;
+        line-height: 1.4;
+        color: var(--muted);
+      }
+      .pkg-compact-cta .btn {
+        width: 100%;
+        min-height: 44px;
+        height: auto;
+        margin: 0.2rem 0 0.1rem;
+        padding: 0.75rem 1rem;
+        white-space: normal;
+        background: var(--p600);
+        gap: 7px;
+      }
+      .pkg-compact-cta .btn-ico {
+        width: 15px;
+        height: 15px;
+      }
 
       @media (max-width: 599px) {
         .pkg-compact-actions {
           flex: 1 1 100%;
           flex-direction: row;
+          flex-wrap: wrap;
           align-items: center;
           margin-left: 0;
         }
@@ -2290,11 +2410,17 @@
         .pkg-compact-actions .btn {
           flex: 1 1 auto;
         }
+        .pkg-compact-wa-note {
+          text-align: left;
+        }
       }
 
       .route-map-frame {
         position: relative;
         aspect-ratio: 1.18;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
         border: 1px solid var(--line);
         border-radius: 20px;
         background: #fff;
@@ -2305,6 +2431,7 @@
         display: block;
         width: 100%;
         height: 100%;
+        overflow: hidden;
         contain: paint;
       }
       .route-map-neighbors {
@@ -2328,6 +2455,20 @@
       @media (min-width: 1024px) {
         .pkg-mini-map {
           display: none;
+        }
+        /* After the base .route-map-frame rule so aspect-ratio: auto wins. */
+        .route-map-layout > .route-map-frame {
+          aspect-ratio: auto;
+          height: 100%;
+          width: 100%;
+          max-width: 100%;
+        }
+        /* Sede única (Cantón): sin recorrido que dibujar, un marco alto deja
+           medio mapa vacío. Formato apaisado y anclado arriba junto a la ficha. */
+        #fairMapFrame {
+          aspect-ratio: 1.5;
+          height: auto;
+          align-self: start;
         }
       }
       @media (max-width: 1023px) {

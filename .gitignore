@@ -4,3 +4,4 @@
 !wrangler.jsonc
 !vercel.json
 !.gitignore
+**/.DS_Store
