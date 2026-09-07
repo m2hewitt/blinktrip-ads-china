@@ -2414,6 +2414,27 @@
           text-align: left;
         }
       }
+      @media (max-width: 1023px) {
+        #routeMapCards .pkg-compact-actions > .pkg-wa,
+        #routeMapCards .pkg-compact-actions > .pkg-compact-wa-note {
+          display: none;
+        }
+        #routeMapCards .pkg-compact-actions {
+          flex: 1 1 100%;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          align-items: center;
+          margin-left: 0;
+          width: 100%;
+        }
+        #routeMapCards .pkg-compact-info {
+          flex: 1 1 auto;
+          width: 100%;
+          margin-right: 0;
+          justify-content: flex-start;
+          min-height: 44px;
+        }
+      }
 
       .route-map-frame {
         position: relative;
