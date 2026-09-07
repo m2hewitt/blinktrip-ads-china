@@ -1252,11 +1252,20 @@
         gap: 0.4rem;
       }
       .highlights span {
-        background: #fff;
-        border: 1px solid var(--line);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.32rem;
+        background: var(--p50);
+        border: 1px solid var(--p200);
         border-radius: 999px;
-        padding: 0.35rem 0.6rem;
+        padding: 0.35rem 0.7rem;
         font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .highlights .hl-check {
+        color: var(--p600);
+        font-weight: 800;
       }
       .common {
         color: var(--soft);
