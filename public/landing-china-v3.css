@@ -2094,10 +2094,6 @@
           grid-template-columns: minmax(400px, 0.85fr) minmax(0, 1.15fr);
           column-gap: var(--space-6);
         }
-        .route-map-frame {
-          aspect-ratio: auto;
-          height: 100%;
-        }
       }
       .route-map-cards {
         display: flex;
@@ -2121,15 +2117,6 @@
          para que el precio por fase no se lea como comparable. */
       #ferias {
         border-top: 1px solid var(--line);
-      }
-      /* Sede única (Cantón): sin recorrido que dibujar, un marco alto deja
-         medio mapa vacío. Formato apaisado y anclado arriba junto a la ficha. */
-      @media (min-width: 1024px) {
-        #fairMapFrame {
-          aspect-ratio: 1.5;
-          height: auto;
-          align-self: start;
-        }
       }
       .pkg-flag {
         display: inline-flex;
@@ -2431,6 +2418,9 @@
       .route-map-frame {
         position: relative;
         aspect-ratio: 1.18;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
         border: 1px solid var(--line);
         border-radius: 20px;
         background: #fff;
@@ -2441,6 +2431,7 @@
         display: block;
         width: 100%;
         height: 100%;
+        overflow: hidden;
         contain: paint;
       }
       .route-map-neighbors {
@@ -2464,6 +2455,20 @@
       @media (min-width: 1024px) {
         .pkg-mini-map {
           display: none;
+        }
+        /* After the base .route-map-frame rule so aspect-ratio: auto wins. */
+        .route-map-layout > .route-map-frame {
+          aspect-ratio: auto;
+          height: 100%;
+          width: 100%;
+          max-width: 100%;
+        }
+        /* Sede única (Cantón): sin recorrido que dibujar, un marco alto deja
+           medio mapa vacío. Formato apaisado y anclado arriba junto a la ficha. */
+        #fairMapFrame {
+          aspect-ratio: 1.5;
+          height: auto;
+          align-self: start;
         }
       }
       @media (max-width: 1023px) {
