@@ -306,10 +306,6 @@
         color: var(--p700);
         margin-bottom: 1.05rem;
       }
-      .visa-badge:hover {
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
       .trust {
         align-items: center;
         margin-top: 1.3rem;
