@@ -1280,7 +1280,17 @@
         .forEach((card) => {
           card
             .querySelector("[data-map-select]")
-            .addEventListener("click", () => activateMapCard(card.dataset.id));
+            .addEventListener("click", () => {
+              // Por debajo de 1024px el mapa grande está display:none
+              // (landing-china-v3.css:2334), así que activar la ruta acá no
+              // produce ningún cambio visible: es el dead click que reporta
+              // Clarity. Abrimos el detalle, que ya trae su propio mini-mapa.
+              if (!mqDesktopMap.matches) {
+                card.querySelector("[data-toggle]")?.click();
+                return;
+              }
+              activateMapCard(card.dataset.id);
+            });
         });
       // The standalone (desktop) map — specific selector so it is not confused
       // with the per-card `.pkg-mini-map.route-map-frame` copies, which come
@@ -1374,7 +1384,15 @@
         renderFairMap(false);
         fairCardsHost
           .querySelector("[data-map-select]")
-          .addEventListener("click", () => renderFairMap(true));
+          .addEventListener("click", () => {
+            // Mismo dead click que en #itinerarios: bajo 1024px renderFairMap()
+            // sale por su propia guarda de mqDesktopMap y el tap no hace nada.
+            if (!mqDesktopMap.matches) {
+              fairCardsHost.querySelector("[data-toggle]")?.click();
+              return;
+            }
+            renderFairMap(true);
+          });
         if ("ResizeObserver" in window && fairFrame) {
           new ResizeObserver(() => {
             if (!mqDesktopMap.matches) return;
@@ -1398,6 +1416,13 @@
             : p.family === "ferias"
               ? "fair"
               : "custom";
+        // La barra sticky tapa el header justo cuando el usuario expande un
+        // itinerario. Que nombre lo que está mirando en vez del copy genérico.
+        const stickyLabel = document.getElementById("stickyLabel");
+        const stickyProduct = document.getElementById("stickyProduct");
+        if (stickyLabel)
+          stickyLabel.textContent = `${p.nights} noches · ${p.priceLabel} ${money(p.priceUsd)}`;
+        if (stickyProduct) stickyProduct.textContent = p.customerName;
       }
       document.addEventListener("click", (e) => {
         const toggle = e.target.closest("[data-toggle]");
