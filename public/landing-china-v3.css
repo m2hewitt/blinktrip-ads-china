@@ -2268,32 +2268,6 @@
         line-height: 1.35;
         color: var(--p700);
       }
-      .pkg-compact-chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.28rem;
-        margin-bottom: 0.35rem;
-      }
-      .pkg-compact-chips span {
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: var(--p700);
-        background: var(--p50);
-        border: 1px solid var(--p200);
-        border-radius: 999px;
-        padding: 0.14rem 0.48rem;
-      }
-      .pkg-compact-meta {
-        display: flex;
-        align-items: baseline;
-        gap: 0.45rem;
-        font-size: 0.74rem;
-        color: var(--muted);
-      }
-      .pkg-compact-meta b {
-        color: var(--ink);
-        font-size: 0.92rem;
-      }
       .pkg-compact-offer {
         display: flex;
         flex-direction: column;
@@ -2388,14 +2362,6 @@
         color: var(--wa-fg);
         border-color: transparent;
       }
-      .pkg-compact-wa-note {
-        flex-basis: 100%;
-        font-size: 0.68rem;
-        font-weight: 500;
-        line-height: 1.3;
-        color: var(--muted);
-        text-align: right;
-      }
       .pkg-compact-detail {
         flex-basis: 100%;
         width: 100%;
@@ -2453,17 +2419,9 @@
         .pkg-compact-actions .btn {
           flex: 1 1 auto;
         }
-        .pkg-compact-wa-note {
-          text-align: left;
-        }
       }
       @media (max-width: 1023px) {
-        #routeMapCards .pkg-compact-actions > .pkg-wa,
-        #routeMapCards .pkg-compact-actions > .pkg-compact-wa-note {
-          display: none;
-        }
-
-        #routeMapCards .pkg-compact {
+        .route-map-cards .pkg-compact {
           flex-direction: column;
           flex-wrap: nowrap;
           align-items: stretch;
@@ -2475,32 +2433,32 @@
           background: #fff;
           box-shadow: none;
         }
-        #routeMapCards .pkg-compact:has(.pkg-compact-kicker) {
+        .route-map-cards .pkg-compact:has(.pkg-compact-kicker) {
           align-items: stretch;
         }
-        #routeMapCards .pkg-compact:hover,
-        #routeMapCards .pkg-compact.active {
+        .route-map-cards .pkg-compact:hover,
+        .route-map-cards .pkg-compact.active {
           border-color: var(--line);
           box-shadow: none;
           background: #fff;
         }
-        #routeMapCards .pkg-compact.is-expanded,
-        #routeMapCards .pkg-compact.is-expanded:hover,
-        #routeMapCards .pkg-compact.is-expanded.active {
+        .route-map-cards .pkg-compact.is-expanded,
+        .route-map-cards .pkg-compact.is-expanded:hover,
+        .route-map-cards .pkg-compact.is-expanded.active {
           border-color: var(--p700);
           box-shadow: none;
           background: #fff;
         }
-        #routeMapCards .pkg-compact:has(:focus-visible) {
+        .route-map-cards .pkg-compact:has(:focus-visible) {
           outline: 3px solid var(--p700);
           outline-offset: 3px;
         }
-        #routeMapCards .pkg-compact-select:focus-visible,
-        #routeMapCards .pkg-compact-info:focus-visible {
+        .route-map-cards .pkg-compact-select:focus-visible,
+        .route-map-cards .pkg-compact-info:focus-visible {
           outline: none;
         }
 
-        #routeMapCards .pkg-compact-select {
+        .route-map-cards .pkg-compact-select {
           flex-direction: column;
           align-items: stretch;
           gap: 0;
@@ -2508,40 +2466,40 @@
           width: 100%;
           min-width: 0;
         }
-        #routeMapCards .pkg-compact:has(.pkg-compact-kicker) .pkg-compact-select {
+        .route-map-cards .pkg-compact:has(.pkg-compact-kicker) .pkg-compact-select {
           align-items: stretch;
         }
 
-        #routeMapCards .pkg-compact-thumb {
+        .route-map-cards .pkg-compact-thumb {
           width: 100%;
           height: 112px;
           border-radius: 0;
           object-fit: cover;
           flex: 0 0 auto;
         }
-        #routeMapCards [data-id="express"] .pkg-compact-thumb {
+        .route-map-cards [data-id="express"] .pkg-compact-thumb {
           object-position: center 30%;
         }
-        #routeMapCards [data-id="guilin"] .pkg-compact-thumb {
+        .route-map-cards [data-id="guilin"] .pkg-compact-thumb {
           object-position: center 42%;
         }
-        #routeMapCards [data-id="avatar"] .pkg-compact-thumb {
+        .route-map-cards [data-id="avatar"] .pkg-compact-thumb {
           object-position: center 68%;
         }
         @media (min-width: 600px) {
-          #routeMapCards .pkg-compact-thumb {
+          .route-map-cards .pkg-compact-thumb {
             height: 168px;
           }
         }
 
-        #routeMapCards .pkg-compact-body {
+        .route-map-cards .pkg-compact-body {
           display: block;
           flex: 1 1 auto;
           width: 100%;
           min-width: 0;
           padding: 12px 14px;
         }
-        #routeMapCards .pkg-compact-name {
+        .route-map-cards .pkg-compact-name {
           margin: 0 0 4px;
           overflow: visible;
           font-size: 18px;
@@ -2550,14 +2508,14 @@
           color: var(--ink);
           white-space: normal;
         }
-        #routeMapCards .pkg-compact-kicker {
+        .route-map-cards .pkg-compact-kicker {
           margin: 0 0 4px;
           font-size: 12px;
           font-weight: 500;
           line-height: 1.3;
           color: var(--muted);
         }
-        #routeMapCards .pkg-compact-cities {
+        .route-map-cards .pkg-compact-cities {
           display: block;
           margin: 0;
           overflow: visible;
@@ -2569,11 +2527,11 @@
           color: var(--p700);
           white-space: normal;
         }
-        #routeMapCards .pkg-compact-offer {
+        .route-map-cards .pkg-compact-offer {
           margin-top: 12px;
           gap: 4px;
         }
-        #routeMapCards .pkg-compact-price {
+        .route-map-cards .pkg-compact-price {
           display: flex;
           flex-wrap: nowrap;
           align-items: baseline;
@@ -2582,40 +2540,40 @@
           font-weight: inherit;
           line-height: 1.2;
         }
-        #routeMapCards .pkg-compact-price-prefix::after {
+        .route-map-cards .pkg-compact-price-prefix::after {
           content: none;
         }
-        #routeMapCards .pkg-compact-price-prefix {
+        .route-map-cards .pkg-compact-price-prefix {
           font-size: 13px;
           font-weight: 600;
           color: var(--ink);
         }
-        #routeMapCards .pkg-compact-price-amount {
+        .route-map-cards .pkg-compact-price-amount {
           font-size: 24px;
           font-weight: 800;
           color: var(--ink);
           font-variant-numeric: tabular-nums;
         }
-        #routeMapCards .pkg-compact-basis {
+        .route-map-cards .pkg-compact-basis {
           font-size: 12px;
           font-weight: 500;
           line-height: 1.35;
           color: var(--muted);
         }
-        #routeMapCards .pkg-compact-flights {
+        .route-map-cards .pkg-compact-flights {
           font-size: 12px;
           font-weight: 600;
           line-height: 1.35;
           color: var(--ink);
         }
-        #routeMapCards .pkg-compact-flights::before {
+        .route-map-cards .pkg-compact-flights::before {
           content: "✈";
           display: inline-block;
           margin-right: 4px;
           font-size: 11px;
         }
 
-        #routeMapCards .pkg-compact-actions {
+        .route-map-cards .pkg-compact-actions {
           display: flex;
           flex: 0 0 auto;
           flex-direction: row;
@@ -2629,11 +2587,11 @@
           border-top: 1px solid var(--p200);
           background: var(--p50);
         }
-        #routeMapCards .pkg-compact:has(.pkg-compact-kicker) .pkg-compact-actions {
+        .route-map-cards .pkg-compact:has(.pkg-compact-kicker) .pkg-compact-actions {
           align-self: stretch;
           justify-content: stretch;
         }
-        #routeMapCards .pkg-compact-info {
+        .route-map-cards .pkg-compact-info {
           display: flex;
           flex: 1 1 auto;
           align-items: center;
@@ -2645,14 +2603,159 @@
           font-size: 13px;
           font-weight: 600;
         }
-        #routeMapCards .pkg-compact-info-chevron {
+        .route-map-cards .pkg-compact-info-chevron {
           margin-left: 12px;
         }
-        #routeMapCards .pkg-compact-detail {
-          padding-inline: 20px;
+        .route-map-cards .pkg-compact-detail {
+          padding-inline: 14px;
         }
-        #routeMapCards .pkg-compact-detail .detail-inner {
+        .route-map-cards .pkg-compact-detail .detail-inner {
           padding-block: 16px 20px;
+        }
+      }
+
+      /* Desktop (>=1024px): las tarjetas de #itinerarios y #ferias ya no
+         llevan CTA de contacto. En esta etapa la intención es ver más, no
+         escribir: el espacio que ocupaba el botón verde se reparte entre una
+         foto con cuerpo real, el precio como ancla visual y un único botón
+         ("Ver recorrido" / "Ver detalle"). El CTA de WhatsApp queda dentro
+         del detalle abierto. */
+      @media (min-width: 1024px) {
+        .route-map-cards .pkg-compact {
+          align-items: stretch;
+          gap: 0.85rem;
+          padding: 0.7rem;
+        }
+        .route-map-cards .pkg-compact:hover {
+          border-color: var(--p400);
+          box-shadow: 0 8px 22px rgba(25, 25, 25, 0.08);
+          transform: translateY(-1px);
+        }
+        .route-map-cards .pkg-compact:has(.pkg-compact-kicker),
+        .route-map-cards .pkg-compact:has(.pkg-compact-kicker)
+          .pkg-compact-select {
+          align-items: stretch;
+        }
+        /* min-width: antes de que el texto se aplaste, la pastilla baja a su
+           propia línea (columna de tarjetas angosta, ~1024-1150px). */
+        .route-map-cards .pkg-compact-select {
+          align-items: stretch;
+          gap: 0.85rem;
+          flex: 1 1 320px;
+          min-width: 320px;
+        }
+        .route-map-cards .pkg-compact-thumb {
+          width: 108px;
+          height: auto;
+          min-height: 108px;
+          align-self: stretch;
+          border-radius: 12px;
+          object-fit: cover;
+        }
+        .route-map-cards [data-id="express"] .pkg-compact-thumb {
+          object-position: center 35%;
+        }
+        .route-map-cards [data-id="guilin"] .pkg-compact-thumb {
+          object-position: center 45%;
+        }
+        .route-map-cards [data-id="avatar"] .pkg-compact-thumb {
+          object-position: center 60%;
+        }
+
+        .route-map-cards .pkg-compact-body {
+          display: flex;
+          flex-direction: column;
+          flex: 1 1 auto;
+          padding: 0.1rem 0;
+        }
+        .route-map-cards .pkg-compact-name {
+          font-size: 0.98rem;
+          line-height: 1.22;
+        }
+        .route-map-cards .pkg-compact-cities {
+          margin: 0.28rem 0 0;
+        }
+        /* El precio se ancla abajo: todas las tarjetas lo alinean a la misma
+           altura aunque el nombre ocupe una o dos líneas. */
+        .route-map-cards .pkg-compact-offer {
+          margin-top: auto;
+          padding-top: 0.55rem;
+          gap: 0.12rem;
+        }
+        .route-map-cards .pkg-compact-price {
+          display: flex;
+          flex-wrap: nowrap;
+          align-items: baseline;
+          gap: 0.34rem;
+          font-size: inherit;
+          font-weight: inherit;
+          line-height: 1.15;
+        }
+        .route-map-cards .pkg-compact-price-prefix {
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: var(--ink);
+        }
+        .route-map-cards .pkg-compact-price-prefix::after {
+          content: none;
+        }
+        .route-map-cards .pkg-compact-price-amount {
+          font-size: 1.42rem;
+          font-weight: 800;
+          color: var(--ink);
+          font-variant-numeric: tabular-nums;
+        }
+        .route-map-cards .pkg-compact-flights {
+          font-weight: 600;
+          color: var(--ink);
+        }
+        .route-map-cards .pkg-compact-flights::before {
+          content: "✈";
+          display: inline-block;
+          margin-right: 4px;
+          font-size: 0.68rem;
+        }
+
+        /* Única acción de la tarjeta: pastilla violeta centrada en la fila,
+           en el lugar donde antes competían dos botones. */
+        .route-map-cards .pkg-compact-actions,
+        .route-map-cards .pkg-compact:has(.pkg-compact-kicker)
+          .pkg-compact-actions {
+          align-self: center;
+          align-items: center;
+          justify-content: center;
+          flex: 0 0 auto;
+          margin-left: auto;
+        }
+        .route-map-cards .pkg-compact-info {
+          justify-content: center;
+          gap: 0;
+          padding: 0.6rem 0.95rem;
+          border: 1.5px solid var(--p300);
+          border-radius: 999px;
+          background: #fff;
+          font-size: 0.82rem;
+          white-space: nowrap;
+          transition:
+            border-color 160ms ease,
+            background-color 160ms ease,
+            color 160ms ease;
+        }
+        .route-map-cards .pkg-compact:hover .pkg-compact-info,
+        .route-map-cards .pkg-compact-info:hover {
+          border-color: var(--p600);
+          background: var(--p50);
+        }
+        .route-map-cards .pkg-compact.is-expanded .pkg-compact-info,
+        .route-map-cards .pkg-compact.is-expanded:hover .pkg-compact-info {
+          border-color: var(--p700);
+          background: var(--p700);
+          color: #fff;
+        }
+        .route-map-cards .pkg-compact-info-chevron {
+          margin-left: 0.45em;
+          font-size: 1.05em;
+          transform: translateY(-1px);
         }
       }
 
@@ -3366,11 +3469,6 @@
 
       /* (2) Peso cromático secundario: elementos que NO son acciones dejan de
          usar el magenta pleno para que el CTA gane. */
-      .pkg-compact-chips span {
-        color: var(--soft);
-        background: var(--surface);
-        border-color: var(--line);
-      }
       .group-date {
         color: var(--soft);
       }
@@ -3379,7 +3477,6 @@
          para que se lean intencionales y alineadas. */
       .group-date,
       .group-meta,
-      .pkg-compact-meta,
       .step-number,
       .gr-score,
       .rev-rating-score,
