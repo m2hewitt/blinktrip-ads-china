@@ -28,7 +28,7 @@
          Sin esto el visitante que ya estuvo puede seguir viendo la versión
          anterior. El href del preload y el del stylesheet deben coincidir
          exactamente, o el navegador descarga la hoja dos veces. -->
-    <link rel="preload" as="style" href="landing-china-v3.css?v=20260907m" />
+    <link rel="preload" as="style" href="landing-china-v3.css?v=20261006f" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -42,7 +42,7 @@
         href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&amp;display=swap"
         rel="stylesheet"
     /></noscript>
-    <link rel="stylesheet" href="landing-china-v3.css?v=20260907m" />
+    <link rel="stylesheet" href="landing-china-v3.css?v=20261006f" />
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
@@ -186,9 +186,21 @@
                 <span>desde Argentina</span>
               </h1>
               <p class="sub" id="heroSub">
-                Partí de un recorrido probado y adaptalo con un asesor:
-                fechas, duración, destinos, ritmo, hoteles y experiencias según
-                lo que estés buscando.
+                Elegí un recorrido probado y adaptalo a tu medida con un asesor:
+                fechas, duración y destinos.
+              </p>
+              <aside class="hero-offer" id="heroOffer" hidden>
+                <p class="hero-offer-kicker" id="heroOfferKicker"></p>
+                <p class="hero-offer-price">
+                  <strong class="hero-offer-amount" id="heroOfferAmount"></strong
+                  ><span class="hero-offer-unit" id="heroOfferUnit"></span>
+                </p>
+                <p class="hero-offer-flights" id="heroOfferFlights"></p>
+                <p class="hero-offer-stay" id="heroOfferStay"></p>
+                <p class="hero-offer-note" id="heroOfferNote"></p>
+              </aside>
+              <p class="hero-price-line">
+                Recorrido base desde USD 3.269 · Express 5 noches
               </p>
               <span class="visa-badge"
                 >✓ Sin visa hasta el 31 de diciembre de 2026 para estadías de
@@ -220,18 +232,26 @@
               </p>
             </div>
             <div class="hero-media">
-              <b class="offer-sum-overlay"
+              <b class="offer-sum-overlay" id="heroPriceOverlay"
                 >Recorrido base desde USD 3.269 · Express 5 noches</b
               >
-              <img
-                src="img/great-wall-hero-recreated.webp"
-                srcset="img/great-wall-hero-recreated-640.webp 640w, img/great-wall-hero-recreated.webp 995w"
-                sizes="(max-width: 899px) calc(100vw - 48px), 700px"
-                alt="Viajero recorriendo la Gran Muralla China cerca de Beijing"
-                width="995"
-                height="663"
-                fetchpriority="high"
-              /><span class="ov">📍 Gran Muralla China, Beijing</span>
+              <!-- En mobile la foto se oculta por CSS; la fuente vacía evita
+                   que se descargue con prioridad alta sin mostrarse. -->
+              <picture
+                ><source
+                  media="(max-width: 759px)"
+                  srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><img
+                  src="img/great-wall-hero-recreated.webp"
+                  srcset="img/great-wall-hero-recreated-640.webp 640w, img/great-wall-hero-recreated.webp 995w"
+                  sizes="(max-width: 899px) calc(100vw - 48px), 700px"
+                  alt="Viajero recorriendo la Gran Muralla China cerca de Beijing"
+                  width="995"
+                  height="663"
+                  fetchpriority="high"
+              /></picture><span class="ov">📍 Gran Muralla China, Beijing</span
+              ><a class="hero-media-action" href="#itinerarios"
+                >Ver recorridos y precios</a
+              >
             </div>
           </div>
         </div>
@@ -245,12 +265,11 @@
               <div class="family-head-copy">
                 <span class="eyebrow">Itinerarios para personalizar</span>
                 <h2 class="section-title">
-                  Elegí un itinerario organizado y adaptalo a tu viaje
+                  Elegí un itinerario y adaptalo a tu viaje
                 </h2>
                 <p class="section-lead">
-                  Compará rutas, ciudades y precios de referencia desde USD
-                  3.269. Al cotizar, podés cambiar fechas, duración, destinos y
-                  servicios.
+                  Compará rutas y precios de referencia desde USD 3.269. Al
+                  cotizar, podés ajustar fechas, duración y destinos.
                 </p>
               </div>
               <div class="route-map-cards" id="routeMapCards"></div>
@@ -273,40 +292,6 @@
               </svg>
             </div>
           </div>
-          <p class="price-note">
-            Los valores publicados son precios de referencia por persona, en
-            habitación doble, e incluyen vuelos internacionales. Los cambios
-            pueden modificar el precio, los servicios incluidos y la
-            disponibilidad. El precio final se confirma antes de reservar.
-          </p>
-        </div>
-      </section>
-
-      <section id="ferias" class="pad">
-        <div class="wrap">
-          <div class="route-map-layout">
-            <div class="route-map-card-column">
-              <div class="family-head-copy">
-                <span class="eyebrow">Viajes de negocios</span>
-                <h2 class="section-title">
-                  Feria de Cantón 2026, con la logística resuelta
-                </h2>
-                <p class="section-lead">
-                  Un programa de fecha fija para viajar a comprar, no un
-                  circuito turístico. Se cotiza por fase y el aéreo
-                  internacional va por separado.
-                </p>
-              </div>
-              <div class="route-map-cards" id="fairCards"></div>
-            </div>
-            <div class="route-map-frame" id="fairMapFrame"></div>
-          </div>
-          <p class="price-note">
-            USD 1.499 por persona y por fase, impuestos incluidos.
-            <b>No incluye el aéreo internacional</b>, que se cotiza aparte
-            según fechas y disponibilidad. Cupos, tarifas y servicios de cada
-            fase se confirman al momento de reservar.
-          </p>
         </div>
       </section>
 
@@ -450,6 +435,34 @@
         </div>
       </section>
 
+      <section id="ferias" class="pad">
+        <div class="wrap">
+          <div class="route-map-layout">
+            <div class="route-map-card-column">
+              <div class="family-head-copy">
+                <span class="eyebrow">Viajes de negocios</span>
+                <h2 class="section-title">
+                  Feria de Cantón 2026, con la logística resuelta
+                </h2>
+                <p class="section-lead">
+                  Un programa de fecha fija para viajar a comprar, no un
+                  circuito turístico. Se cotiza por fase y el aéreo
+                  internacional va por separado.
+                </p>
+              </div>
+              <div class="route-map-cards" id="fairCards"></div>
+            </div>
+            <div class="route-map-frame" id="fairMapFrame"></div>
+          </div>
+          <p class="price-note">
+            USD 1.499 por persona y por fase, impuestos incluidos.
+            <b>No incluye el aéreo internacional</b>, que se cotiza aparte
+            según fechas y disponibilidad. Cupos, tarifas y servicios de cada
+            fase se confirman al momento de reservar.
+          </p>
+        </div>
+      </section>
+
       <section id="opiniones" class="pad trust-section">
         <div class="wrap">
           <div class="trust-layout">
@@ -461,9 +474,11 @@
               </h2>
               <p class="section-lead trust-intro">
                 Somos una agencia de viajes habilitada, con atención
-                personalizada desde Buenos Aires. Los medios que nos destacaron
-                y las experiencias reales de quienes ya viajaron con nosotros
-                respaldan la forma en que acompañamos cada viaje.
+                personalizada desde Buenos Aires.<span class="trust-intro-more">
+                  Los medios que nos destacaron y las experiencias reales de
+                  quienes ya viajaron con nosotros respaldan la forma en que
+                  acompañamos cada viaje.</span
+                >
               </p>
               <div class="press-strip">
                 <span class="eyebrow">BlinkTrip en medios</span>
@@ -777,6 +792,6 @@
       </button>
     </div>
 
-    <script src="landing-china-v3.js?v=20260907g" defer></script>
+    <script src="landing-china-v3.js?v=20261006d" defer></script>
   </body>
 </html>

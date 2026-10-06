@@ -1,5 +1,12 @@
       const WA_NUMBER = "5491166036714";
 
+      // One normalized variant for copy, offer and analytics. Unknown values
+      // keep the personalized default instead of leaking arbitrary query text.
+      const AG = (() => {
+        const value = (new URLSearchParams(location.search).get("ag") || "").trim().toLowerCase();
+        return ["precio", "tour", "turismo"].includes(value) ? value : "default";
+      })();
+
       /* DKI: adapta H1 y subtítulo del hero según el ad group de Google Ads.
          Uso en la URL final del anuncio: ?ag=precio | tour | turismo
          (si no hay parámetro válido, se mantiene el copy por defecto). */
@@ -7,27 +14,38 @@
         const VARIANTS = {
           precio: {
             h1: "¿Cuánto cuesta viajar a China <span>desde Argentina</span>?",
-            sub: "Precio de referencia desde USD 3.269 (consultá las opciones de financiación). Un asesor arma tu presupuesto según fechas, duración y destinos.",
+            sub: "Precio de referencia desde USD 3.269. Un asesor arma tu presupuesto según fechas, duración y destinos.",
           },
           tour: {
             h1: "Tours a China organizados <span>desde Argentina</span>",
-            sub: "Recorridos probados con vuelos, hoteles, guía en español y traslados. Elegí un itinerario base y adaptalo con un asesor.",
+            sub: "Compará circuitos y salidas acompañadas con vuelos incluidos.",
           },
           turismo: {
             h1: "Viajá a los lugares imperdibles de China <span>desde Argentina</span>",
-            sub: "Gran Muralla, Ciudad Prohibida, Guerreros de Terracota y más, en paquetes organizados que adaptás con un asesor.",
+            sub: "Gran Muralla, Terracota y más. Elegí un recorrido y adaptalo con un asesor.",
           },
         };
         try {
-          const ag = (new URLSearchParams(location.search).get("ag") || "")
-            .toLowerCase()
-            .trim();
-          const v = VARIANTS[ag];
-          if (!v) return;
+          const v = VARIANTS[AG];
+          if (!v) {
+            const sub = document.getElementById("heroSub");
+            if (sub) sub.textContent = "Armá tu viaje a China a tu medida con un asesor.";
+            return;
+          }
           const h1 = document.getElementById("heroH1");
           const sub = document.getElementById("heroSub");
           if (h1) h1.innerHTML = v.h1;
           if (sub) sub.textContent = v.sub;
+          if (AG === "tour") {
+            const actions = document.querySelector(".hero-actions");
+            if (actions) {
+              const links = document.createElement("nav");
+              links.className = "hero-tour-links";
+              links.setAttribute("aria-label", "Opciones de tours a China");
+              links.innerHTML = '<a href="#itinerarios">Ver circuitos</a><a href="#acompanadas">Ver salidas acompañadas</a>';
+              actions.before(links);
+            }
+          }
         } catch (e) {
           /* si algo falla, se conserva el copy por defecto */
         }
@@ -1198,11 +1216,15 @@
       window.BT_EVENTS = window.BT_EVENTS || [];
       const TRACK_GUARD = new Map();
       function btTrack(event, payload = {}) {
-        const data = { event, ...payload, attribution: ATTRIBUTION };
+        const data = { event, ...payload, ag: AG, attribution: ATTRIBUTION };
         const key = event + JSON.stringify(payload);
         const now = Date.now();
-        if (now - (TRACK_GUARD.get(key) || 0) < 700) return;
-        TRACK_GUARD.set(key, now);
+        // WhatsApp is deduplicated by the actual DOM event, not by time:
+        // two real clicks must each produce exactly one conversion.
+        if (event !== "whatsapp_click") {
+          if (now - (TRACK_GUARD.get(key) || 0) < 700) return;
+          TRACK_GUARD.set(key, now);
+        }
         window.dataLayer.push(data);
         window.BT_EVENTS.push(data);
       }
@@ -1228,6 +1250,52 @@
       function money(n) {
         return new Intl.NumberFormat("es-AR").format(n);
       }
+      /* Oferta del hero solo con ?ag=precio y el recorrido express ya definido.
+         No corre dentro de heroDKI: PRODUCTS todavía no existe ahí. */
+      (function revealPrecioHeroOffer() {
+        const offer = document.getElementById("heroOffer");
+        if (!offer) return;
+        if (AG !== "precio") return;
+        const express = PRODUCTS.find((p) => p.id === "express");
+        const basis = String(express && express.priceBasis ? express.priceBasis : "");
+        const perPerson = /por persona/i.test(basis);
+        const doubleRoom = /habitaci[oó]n doble/i.test(basis);
+        if (
+          !express ||
+          express.id !== "express" ||
+          typeof express.priceUsd !== "number" ||
+          typeof express.nights !== "number" ||
+          !express.customerName ||
+          !express.priceLabel ||
+          !perPerson ||
+          !doubleRoom
+        ) {
+          return;
+        }
+        const kicker = document.getElementById("heroOfferKicker");
+        const amount = document.getElementById("heroOfferAmount");
+        const unit = document.getElementById("heroOfferUnit");
+        const flights = document.getElementById("heroOfferFlights");
+        const stay = document.getElementById("heroOfferStay");
+        const note = document.getElementById("heroOfferNote");
+        if (!kicker || !amount || !unit || !flights || !stay || !note) return;
+        const nightsLabel =
+          express.nights === 1 ? "1 noche" : express.nights + " noches";
+        kicker.textContent = "Recorrido base · " + express.customerName;
+        amount.textContent = express.priceLabel + " " + money(express.priceUsd);
+        unit.textContent = "por persona";
+        flights.textContent = "Vuelos internacionales incluidos";
+        stay.textContent = nightsLabel + " · Habitación doble";
+        note.textContent = "Precio de referencia sujeto a confirmación";
+        const sub = document.getElementById("heroSub");
+        if (sub) {
+          sub.textContent =
+            "Un asesor arma tu presupuesto según fechas, duración y destinos.";
+        }
+        const overlay = document.getElementById("heroPriceOverlay");
+        if (overlay) overlay.hidden = true;
+        offer.hidden = false;
+      })();
       function displayDate(p) {
         if (p.dateWindow === "dynamic-imperial") {
           const now = new Date();
@@ -1292,7 +1360,12 @@
         return `<div class="pkg-availability ${level}" aria-label="${used} de ${total} cupos ocupados en esta salida"><span class="availability-label">Cupos</span><div class="availability-top"><strong>${leftText}</strong><span>${percent}%</span></div><div class="availability-meter" aria-hidden="true">${bars}</div><span class="availability-sub">${used}/${total} ocupados</span></div>`;
       }
       function accompaniedCardHtml(p) {
-        return `<article class="group-card"><img src="img/${p.image}.webp" alt="${p.customerName}" width="1200" height="800" loading="lazy"><div class="group-card-body"><span class="group-date">Salida ${displayDate(p)}</span><h3>${p.customerName}</h3><div class="group-meta"><span>${p.nights} noches</span><strong>Desde USD ${money(p.priceUsd)}</strong></div>${cardAvailabilityHtml(p)}<a class="btn btn-wa btn-sm pkg-wa" data-wa data-product="${p.id}" data-journey-type="accompanied" data-cta-location="accompanied_cross_sell" href="${waLink(accompaniedMessage(p))}" target="_blank" rel="noopener"><svg class="btn-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.988-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.15-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.149-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>Consultar por WhatsApp</a></div></article>`;
+        const detailId = "detail-" + p.id;
+        const trigger = `data-toggle="${p.id}" aria-expanded="false" aria-controls="${detailId}" aria-label="Ver salida y qué incluye: ${p.customerName}"`;
+        const wa = (location, className = "") => `<a class="btn btn-wa pkg-wa ${className}" data-wa data-product="${p.id}" data-journey-type="accompanied" data-cta-location="${location}" href="${waLink()}" target="_blank" rel="noopener">Consultar este viaje</a>`;
+        // Only the operator-specific information in PRODUCTS is presented as
+        // inclusions; COMMON belongs to customizable circuits, not departures.
+        return `<article class="group-card" data-id="${p.id}"><button class="group-detail-toggle group-card-photo" type="button" ${trigger}><img src="img/${p.image}.webp" alt="" width="1200" height="800" loading="lazy"></button><div class="group-card-body"><span class="group-date">Salida ${displayDate(p)}</span><h3><button class="group-detail-toggle group-card-title" type="button" ${trigger}>${p.customerName}</button></h3><div class="group-meta"><span>${p.nights} noches</span><strong>${p.priceLabel} ${money(p.priceUsd)}</strong></div>${cardAvailabilityHtml(p)}<div class="pkg-compact-actions">${wa("accompanied_card", "pkg-card-wa")}<button class="pkg-compact-info group-detail-toggle" type="button" ${trigger}><span class="pkg-compact-info-label">Ver salida y qué incluye</span><span class="pkg-compact-info-chevron" aria-hidden="true">⌄</span></button></div><div class="pkg-compact-detail pkg-detail group-detail" id="${detailId}" aria-hidden="true" hidden><div class="detail-inner"><div class="detail-grid"><p><b>Salida:</b> ${displayDate(p)} · ${p.days} días · ${p.nights} noches</p><p><b>Recorrido:</b> ${p.route}</p><p><b>Por qué elegirlo:</b> ${p.hook}</p></div><div class="highlights">${p.highlights.map(x => `<span><b class="hl-check">✓</b> ${x}</span>`).join("")}</div><p><b>Acompañamiento:</b> ${p.accompaniment}</p>${p.minPassengers ? `<p><b>Mínimo de pasajeros:</b> ${p.minPassengers}</p>` : ""}<p><b>Servicios y condiciones del programa:</b> ${p.particular}</p><p class="common">El detalle de inclusiones se confirma al consultar esta salida.</p><div class="pkg-early-cta">${wa("accompanied_detail_early")}</div><div class="pkg-compact-cta">${wa("accompanied_detail")}</div></div></div></div></article>`;
       }
       const FEATURED_ACCOMPANIED = [
         "estambul",
@@ -1324,11 +1397,10 @@
           ? `<p><b>No incluye / opcionales:</b> ${p.noIncluye}</p>`
           : "";
         const waHref = waLink(itineraryMessage(p));
-        // La tarjeta no lleva CTA de contacto: en esta etapa la intención es
-        // ver más, no escribir. El único CTA de WhatsApp vive dentro del
-        // detalle abierto (waDetail).
+        const waCard = `<a class="btn btn-wa pkg-card-wa" data-wa data-product="${p.id}" data-journey-type="custom" data-cta-location="itinerary_card" href="${waHref}" target="_blank" rel="noopener">${WA_ICO}Consultar este viaje</a>`;
+        const waEarly = `<div class="pkg-early-cta"><a class="btn btn-wa pkg-wa" data-wa data-product="${p.id}" data-journey-type="custom" data-cta-location="itinerary_detail_early" href="${waHref}" target="_blank" rel="noopener">${WA_ICO}Consultar este viaje</a></div>`;
         const waDetail = `<a class="btn btn-wa pkg-wa" data-wa data-product="${p.id}" data-journey-type="custom" data-cta-location="itinerary_detail" href="${waHref}" target="_blank" rel="noopener">${WA_ICO}Consultar por WhatsApp</a>`;
-        return `<article class="pkg-compact" data-id="${p.id}"><button class="pkg-compact-select" type="button" data-map-select="${p.id}" aria-pressed="false" aria-label="Mostrar ${p.customerName} en el mapa"><img class="pkg-compact-thumb" src="img/${p.image}.webp" alt="" width="1200" height="800" loading="lazy"><span class="pkg-compact-body"><span class="pkg-compact-name">${p.customerName}</span><span class="pkg-compact-kicker">${p.nights} noches · ${p.days} días</span><span class="pkg-compact-cities">${cities}</span><span class="pkg-compact-offer"><span class="pkg-compact-price"><span class="pkg-compact-price-prefix">${p.priceLabel}</span><span class="pkg-compact-price-amount">${money(p.priceUsd)}</span></span><span class="pkg-compact-basis">${priceBasisLine(p)}</span><span class="pkg-compact-flights">Vuelos internacionales incluidos</span></span></span></button><div class="pkg-compact-actions"><button class="pkg-compact-info" type="button" data-toggle="${p.id}" aria-label="Ver recorrido de ${p.customerName}" aria-expanded="false" aria-controls="${detailId}"><span class="pkg-compact-info-label">Ver recorrido</span><span class="pkg-compact-info-chevron" aria-hidden="true">⌄</span></button></div><div class="pkg-compact-detail pkg-detail" id="${detailId}" aria-hidden="true" hidden><div class="detail-inner"><div class="detail-grid"><p><b>Por qué elegirlo:</b> ${p.hook}</p><p><b>Recorrido:</b> ${p.route}</p></div><div class="highlights">${p.highlights.map((x) => `<span><b class="hl-check">✓</b> ${x}</span>`).join("")}</div><p><b>Acompañamiento:</b> ${p.accompaniment}</p>${incluye}${noIncluye}<div class="pkg-mini-map route-map-frame" data-mini-map="${p.id}" aria-hidden="true"></div><div class="pkg-compact-cta"><p class="pkg-compact-cta-title">¿Te interesa este recorrido?</p><p class="pkg-compact-cta-lead">Podemos adaptar fechas, hoteles y duración.</p>${waDetail}<p class="pkg-compact-cta-note">Sin compromiso.</p></div></div></div></article>`;
+        return `<article class="pkg-compact" data-id="${p.id}"><button class="pkg-compact-select" type="button" data-map-select="${p.id}" aria-pressed="false" aria-label="Mostrar ${p.customerName} en el mapa"><img class="pkg-compact-thumb" src="img/${p.image}.webp" alt="" width="1200" height="800" loading="lazy"><span class="pkg-compact-body"><span class="pkg-compact-name">${p.customerName}</span><span class="pkg-compact-kicker">${p.nights} noches · ${p.days} días</span><span class="pkg-compact-cities">${cities}</span><span class="pkg-compact-offer"><span class="pkg-compact-price"><span class="pkg-compact-price-prefix">${p.priceLabel}</span><span class="pkg-compact-price-amount">${money(p.priceUsd)}</span></span><span class="pkg-compact-basis">${priceBasisLine(p)}</span><span class="pkg-compact-flights">Vuelos internacionales incluidos</span></span></span></button><div class="pkg-compact-actions">${waCard}<button class="pkg-compact-info" type="button" data-toggle="${p.id}" aria-label="Ver recorrido de ${p.customerName}" aria-expanded="false" aria-controls="${detailId}"><span class="pkg-compact-info-label">Ver recorrido</span><span class="pkg-compact-info-chevron" aria-hidden="true">⌄</span></button></div><div class="pkg-compact-detail pkg-detail" id="${detailId}" aria-hidden="true" hidden><div class="detail-inner"><div class="detail-grid"><p><b>Por qué elegirlo:</b> ${p.hook}</p><p><b>Recorrido:</b> ${p.route}</p></div><div class="highlights">${p.highlights.map((x) => `<span><b class="hl-check">✓</b> ${x}</span>`).join("")}</div><p><b>Acompañamiento:</b> ${p.accompaniment}</p>${incluye}${noIncluye}${waEarly}<div class="pkg-mini-map route-map-frame" data-mini-map="${p.id}" aria-hidden="true"></div><div class="pkg-compact-cta"><p class="pkg-compact-cta-title">¿Te interesa este recorrido?</p><p class="pkg-compact-cta-lead">Podemos adaptar fechas, hoteles y duración.</p>${waDetail}<p class="pkg-compact-cta-note">Sin compromiso.</p></div></div></div></article>`;
       }
       document.getElementById("routeMapCards").innerHTML =
         MAP_PACKAGE_IDS.map((id) => PRODUCTS.find((p) => p.id === id))
@@ -1494,20 +1566,21 @@
         const detail = document.getElementById("detail-" + p.id);
         if (!detail) return;
         const isFair = p.family === "ferias";
-        const card = toggle.closest(".pkg-compact");
-        toggle.setAttribute("aria-expanded", String(open));
-        toggle.setAttribute(
-          "aria-label",
-          (open ? "Cerrar" : "Ver") +
-            (isFair ? " detalle de " : " recorrido de ") +
-            p.customerName,
-        );
+        const isAccompanied = p.family === "acompanadas";
+        const card = toggle.closest(".pkg-compact, .group-card");
+        const action = isAccompanied ? " salida y qué incluye: " : isFair ? " detalle de " : " recorrido de ";
+        card?.querySelectorAll("[data-toggle]").forEach((control) => {
+          control.setAttribute("aria-expanded", String(open));
+          control.setAttribute("aria-label", (open ? "Cerrar" : "Ver") + action + p.customerName);
+        });
         detail.hidden = !open;
         detail.setAttribute("aria-hidden", String(!open));
-        const label = toggle.querySelector(".pkg-compact-info-label");
-        const chevron = toggle.querySelector(".pkg-compact-info-chevron");
+        const label = card?.querySelector(".pkg-compact-info-label");
+        const chevron = card?.querySelector(".pkg-compact-info-chevron");
         if (label) {
-          label.textContent = open
+          label.textContent = isAccompanied
+            ? open ? "Cerrar salida" : "Ver salida y qué incluye"
+            : open
             ? isFair
               ? "Cerrar detalle"
               : "Cerrar recorrido"
@@ -1518,7 +1591,7 @@
         if (chevron) {
           chevron.textContent = open ? "⌃" : "⌄";
         }
-        if (!label && !chevron) {
+        if (!label && !chevron && !isAccompanied) {
           toggle.textContent = isFair
             ? open
               ? "Cerrar detalle ▴"
@@ -1530,14 +1603,17 @@
         if (card) card.classList.toggle("is-expanded", open);
         btTrack("package_expand", { product_id: p.id, open, source });
         if (open) selectProduct(p);
-        // Desktop: "Ver recorrido" es la única acción de la tarjeta, así que
+        // Desktop: "Ver recorrido" también selecciona la ruta en el mapa, así que
         // también manda sobre el mapa. Sin esto el detalle abierto y la ruta
         // dibujada al lado pueden ser de itinerarios distintos.
         if (open && mqDesktopMap.matches && card?.closest("#routeMapCards")) {
           activateMapCard(p.id);
         }
-        if (open && !mqDesktopMap.matches) renderMiniMapFor(p.id);
+        if (open && !mqDesktopMap.matches && !isAccompanied) renderMiniMapFor(p.id);
         syncRouteCardSelectA11y(card);
+        // Prevent focus remaining in a detail that another trigger just closed.
+        if (!open && detail.contains(document.activeElement)) toggle.focus();
+        scheduleStickyUpdate();
       }
       function togglePkgDetail(toggle, source) {
         const open = toggle.getAttribute("aria-expanded") !== "true";
@@ -1556,14 +1632,26 @@
           const p = PRODUCTS.find((x) => x.id === productLink.dataset.product);
           if (p) selectProduct(p);
         }
-        const wa = e.target.closest("[data-wa]");
-        if (wa) {
-          btTrack("wa_click", {
-            product_id: wa.dataset.product || null,
-            cta_location: wa.dataset.ctaLocation || "unknown",
-            journey_type: wa.dataset.journeyType || null,
-          });
-        }
+      });
+      // Delegation includes generated CTAs and keyboard activations. No direct
+      // per-link listener, no gtag mirror, and no synthetic click conversions.
+      const TRACKED_WA_EVENTS = new WeakSet();
+      document.addEventListener("click", (e) => {
+        const wa = e.target.closest("a[data-wa]");
+        if (!wa || !e.isTrusted || e.defaultPrevented || TRACKED_WA_EVENTS.has(e)) return;
+        if (wa.closest("[hidden], [inert]")) return;
+        TRACKED_WA_EVENTS.add(e);
+        const productId = wa.dataset.product || null;
+        const payload = {
+          intent: wa.dataset.intent || "product",
+          product_id: productId,
+          cta_location: wa.dataset.ctaLocation || "unknown",
+          journey_type: wa.dataset.journeyType || "custom",
+          lead_ref: refFor(productId || wa.dataset.intent || "custom"),
+        };
+        btTrack("whatsapp_click", payload);
+        // Legacy diagnostic remains local and cannot trigger GTM/GA4.
+        window.BT_EVENTS.push({ event: "wa_click", ...payload, ag: AG, attribution: ATTRIBUTION });
       });
       const REVIEWS = [
         {
@@ -1666,17 +1754,6 @@
           a.href = waLink();
         a.target = "_blank";
         a.rel = "noopener";
-        a.addEventListener("click", () =>
-          btTrack("whatsapp_click", {
-            intent: a.dataset.intent || "product",
-            product_id: a.dataset.product || selectedProduct?.id || null,
-            journey_type:
-              a.dataset.journeyType ||
-              (a.dataset.intent?.startsWith("custom") ? "custom" : "product"),
-            cta_location: a.dataset.ctaLocation || "unknown",
-            lead_ref: refFor(a.dataset.product || a.dataset.intent || "custom"),
-          }),
-        );
       });
       const waFloat = document.getElementById("waFloat"),
         waPopup = document.getElementById("waPopup"),
@@ -1692,6 +1769,8 @@
         waIconChat.style.display = open ? "none" : "";
         waIconClose.style.display = open ? "" : "none";
         if (open) waPopup.querySelector(".wa-contact")?.focus();
+        else if (waPopup.contains(document.activeElement)) waButton.focus();
+        scheduleStickyUpdate();
       }
       waButton.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -1712,12 +1791,48 @@
         { passive: true },
       );
       const stickyBarEl = document.getElementById("stickyBar");
-      const siteHeaderEl = document.querySelector("header.site");
-      if (stickyBarEl && siteHeaderEl) {
-        new IntersectionObserver(
-          ([entry]) => {
-            stickyBarEl.classList.toggle("is-visible", !entry.isIntersecting);
-          },
-          { threshold: 0 },
-        ).observe(siteHeaderEl);
+      const heroWaEl = document.querySelector(".hero-actions [data-wa]");
+      let stickyUpdateFrame = 0;
+      function contextualWaVisible(a) {
+        if (a.closest("#stickyBar, #waFloat, [hidden], [inert]")) return false;
+        const rect = a.getBoundingClientRect();
+        const headerBottom = Math.max(0, document.querySelector("header.site")?.getBoundingClientRect().bottom || 0);
+        if (!rect.width || !rect.height || rect.bottom <= headerBottom || rect.top >= innerHeight || rect.right <= 0 || rect.left >= innerWidth) return false;
+        for (let el = a; el; el = el.parentElement) {
+          const style = getComputedStyle(el);
+          if (style.visibility === "hidden" || style.display === "none" || Number(style.opacity) === 0) return false;
+        }
+        return true;
+      }
+      function updateStickyBar() {
+        if (!stickyBarEl || !heroWaEl) return;
+        // A CTA below the viewport is not "left behind". Only its full exit
+        // above the viewport enables the bar; contextual buttons suppress it.
+        const heroAbove = heroWaEl.getBoundingClientRect().bottom <= 0;
+        const contextualVisible = Array.from(document.querySelectorAll("[data-wa]")).some(contextualWaVisible);
+        const visible = heroAbove && !contextualVisible && !waFloat.classList.contains("open");
+        stickyBarEl.classList.toggle("is-visible", visible);
+        stickyBarEl.setAttribute("aria-hidden", String(!visible));
+        stickyBarEl.inert = !visible;
+        stickyBarEl.hidden = !visible;
+        stickyBarEl.style.pointerEvents = visible ? "" : "none";
+      }
+      function scheduleStickyUpdate() {
+        if (stickyUpdateFrame) return;
+        stickyUpdateFrame = requestAnimationFrame(() => {
+          stickyUpdateFrame = 0;
+          updateStickyBar();
+        });
+      }
+      if (stickyBarEl && heroWaEl) {
+        updateStickyBar();
+        addEventListener("scroll", scheduleStickyUpdate, { passive: true });
+        addEventListener("resize", scheduleStickyUpdate, { passive: true });
+        if ("IntersectionObserver" in window) {
+          const observer = new IntersectionObserver(scheduleStickyUpdate, { threshold: [0, 1] });
+          document.querySelectorAll("[data-wa]").forEach(a => {
+            if (!a.closest("#stickyBar")) observer.observe(a);
+          });
+        }
+        if ("ResizeObserver" in window) new ResizeObserver(scheduleStickyUpdate).observe(document.body);
       }
