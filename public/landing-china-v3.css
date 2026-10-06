@@ -288,6 +288,70 @@
       .hero .sub b {
         color: var(--ink);
       }
+      .hero .sub:has(+ .hero-offer:not([hidden])) {
+        margin-bottom: 0.7rem;
+      }
+      .hero-offer[hidden] {
+        display: none !important;
+      }
+      .hero-offer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.15rem;
+        max-width: 36rem;
+        margin: 0 0 0.95rem;
+      }
+      .hero-offer-kicker,
+      .hero-offer-flights,
+      .hero-offer-stay,
+      .hero-offer-note {
+        max-width: 100%;
+        overflow-wrap: break-word;
+      }
+      .hero-offer-kicker {
+        font-size: 0.75rem;
+        font-weight: 600;
+        line-height: 1.35;
+        color: var(--muted);
+      }
+      .hero-offer-price {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.15rem 0.5rem;
+        max-width: 100%;
+        margin: 0.1rem 0 0.15rem;
+      }
+      .hero-offer-amount {
+        font-size: clamp(1.7rem, 7vw, 2.35rem);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      .hero-offer-unit {
+        font-size: 0.95rem;
+        font-weight: 600;
+        line-height: 1.2;
+        color: var(--soft);
+      }
+      .hero-offer-flights,
+      .hero-offer-stay {
+        font-size: 0.92rem;
+        font-weight: 500;
+        line-height: 1.35;
+        color: var(--soft);
+      }
+      .hero-offer-note {
+        margin-top: 0.15rem;
+        font-size: 0.78rem;
+        font-weight: 500;
+        line-height: 1.4;
+        color: var(--muted);
+      }
       .hero-actions,
       .trust,
       .offer-sums {
@@ -375,6 +439,9 @@
         border-radius: 10px;
         padding: 0.48rem 0.65rem;
         color: var(--soft);
+      }
+      .hero-media .offer-sum-overlay[hidden] {
+        display: none !important;
       }
       .hero-media img {
         width: 100%;

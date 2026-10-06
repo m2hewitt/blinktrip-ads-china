@@ -1228,6 +1228,60 @@
       function money(n) {
         return new Intl.NumberFormat("es-AR").format(n);
       }
+      /* Oferta del hero solo con ?ag=precio y el recorrido express ya definido.
+         No corre dentro de heroDKI: PRODUCTS todavía no existe ahí. */
+      (function revealPrecioHeroOffer() {
+        const offer = document.getElementById("heroOffer");
+        if (!offer) return;
+        let ag = "";
+        try {
+          ag = (new URLSearchParams(location.search).get("ag") || "")
+            .toLowerCase()
+            .trim();
+        } catch (e) {
+          return;
+        }
+        if (ag !== "precio") return;
+        const express = PRODUCTS.find((p) => p.id === "express");
+        const basis = String(express && express.priceBasis ? express.priceBasis : "");
+        const perPerson = /por persona/i.test(basis);
+        const doubleRoom = /habitaci[oó]n doble/i.test(basis);
+        if (
+          !express ||
+          express.id !== "express" ||
+          typeof express.priceUsd !== "number" ||
+          typeof express.nights !== "number" ||
+          !express.customerName ||
+          !express.priceLabel ||
+          !perPerson ||
+          !doubleRoom
+        ) {
+          return;
+        }
+        const kicker = document.getElementById("heroOfferKicker");
+        const amount = document.getElementById("heroOfferAmount");
+        const unit = document.getElementById("heroOfferUnit");
+        const flights = document.getElementById("heroOfferFlights");
+        const stay = document.getElementById("heroOfferStay");
+        const note = document.getElementById("heroOfferNote");
+        if (!kicker || !amount || !unit || !flights || !stay || !note) return;
+        const nightsLabel =
+          express.nights === 1 ? "1 noche" : express.nights + " noches";
+        kicker.textContent = "Recorrido base · " + express.customerName;
+        amount.textContent = express.priceLabel + " " + money(express.priceUsd);
+        unit.textContent = "por persona";
+        flights.textContent = "Vuelos internacionales incluidos";
+        stay.textContent = nightsLabel + " · Habitación doble";
+        note.textContent = "Precio de referencia sujeto a confirmación";
+        const sub = document.getElementById("heroSub");
+        if (sub) {
+          sub.textContent =
+            "Precio de referencia (consultá las opciones de financiación). Un asesor arma tu presupuesto según fechas, duración y destinos.";
+        }
+        const overlay = document.getElementById("heroPriceOverlay");
+        if (overlay) overlay.hidden = true;
+        offer.hidden = false;
+      })();
       function displayDate(p) {
         if (p.dateWindow === "dynamic-imperial") {
           const now = new Date();
