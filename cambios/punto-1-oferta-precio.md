@@ -28,7 +28,7 @@ Grok no ejecutó tests, lint, `node --check`, comparaciones de aceptación ni pr
 En `?ag=precio`, y solo si existe el producto `express` con precio numérico, noches numéricas, nombre, `priceLabel` y `priceBasis` que indique persona y habitación doble, el hero queda así:
 
 - H1, sin cambio de DKI: «¿Cuánto cuesta viajar a China desde Argentina?»
-- Subtítulo adaptado, sin el monto: «Precio de referencia (consultá las opciones de financiación). Un asesor arma tu presupuesto según fechas, duración y destinos.»
+- Subtítulo adaptado, sin el monto: «Precio de referencia. Un asesor arma tu presupuesto según fechas, duración y destinos.»
 - Contexto: «Recorrido base · China esencial express»
 - Precio: «Desde USD 3.269» y, al lado, «por persona»
 - «Vuelos internacionales incluidos»
@@ -65,3 +65,7 @@ Ese revert deshace este punto si el commit contiene solo estos archivos. Tras un
 ## Estado
 
 Validación independiente APROBADA por GPT medium en Orca local a 360×740, 390×844 y 1280×900, incluyendo comparación de las otras variantes contra la base. Grok solo implementó; GPT medium solo validó y actualizó documentación de QA. Evidencia, mediciones y límites en [punto-1-validacion-gpt-medium.md](punto-1-validacion-gpt-medium.md). El coordinador registra el commit; la integración y publicación quedan pendientes.
+
+## Corrección comercial posterior
+
+El subtítulo actual de este documento incorpora la corrección solicitada el 2026-10-06. Grok la implementó y GPT medium la aprobó independientemente: [validacion-texto-comercial-gpt-medium.md](validacion-texto-comercial-gpt-medium.md). El informe original conserva la evidencia de la versión anterior. Si se revierte el bloque de oferta, conservar el texto comercial corregido y volver a validar el resultado antes de publicar.

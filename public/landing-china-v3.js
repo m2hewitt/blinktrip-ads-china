@@ -7,7 +7,7 @@
         const VARIANTS = {
           precio: {
             h1: "¿Cuánto cuesta viajar a China <span>desde Argentina</span>?",
-            sub: "Precio de referencia desde USD 3.269 (consultá las opciones de financiación). Un asesor arma tu presupuesto según fechas, duración y destinos.",
+            sub: "Precio de referencia desde USD 3.269. Un asesor arma tu presupuesto según fechas, duración y destinos.",
           },
           tour: {
             h1: "Tours a China organizados <span>desde Argentina</span>",
@@ -1276,7 +1276,7 @@
         const sub = document.getElementById("heroSub");
         if (sub) {
           sub.textContent =
-            "Precio de referencia (consultá las opciones de financiación). Un asesor arma tu presupuesto según fechas, duración y destinos.";
+            "Precio de referencia. Un asesor arma tu presupuesto según fechas, duración y destinos.";
         }
         const overlay = document.getElementById("heroPriceOverlay");
         if (overlay) overlay.hidden = true;
