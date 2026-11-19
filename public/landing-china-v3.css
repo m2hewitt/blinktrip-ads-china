@@ -3787,11 +3787,27 @@
           flex: 0 0 auto;
         }
       }
+      /* Desktop: las dos acciones van lado a lado, en una fila propia bajo
+         la foto + texto (la columna derecha no da ancho para las dos). */
       @media (min-width: 1024px) {
-        .route-map-cards .pkg-compact-actions {
-          flex-direction: column;
+        .route-map-cards .pkg-compact-actions,
+        .route-map-cards .pkg-compact:has(.pkg-compact-kicker)
+          .pkg-compact-actions {
+          flex: 1 1 100%;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          align-self: stretch;
           align-items: stretch;
-          gap: 0.4rem;
+          justify-content: stretch;
+          gap: 0.5rem;
+          margin-left: 0;
+        }
+        .route-map-cards .pkg-compact-actions .btn.pkg-card-wa,
+        .route-map-cards .pkg-compact-actions .pkg-compact-info {
+          flex: 1 1 0;
+          min-width: 0;
+          min-height: 44px;
+          margin: 0;
         }
         .route-map-cards .pkg-compact-actions .btn.pkg-card-wa {
           border-radius: 999px;
@@ -3799,33 +3815,12 @@
         }
       }
 
-      /* --- CTA temprano dentro del detalle, antes del mapa (acción 4) ---- */
-      .pkg-early-cta:not(.btn) {
-        display: grid;
-        gap: 0.3rem;
-        margin: var(--space-3) 0;
-      }
-      .pkg-early-cta .btn,
-      .btn.pkg-early-cta {
-        display: inline-flex;
-        justify-content: center;
-        width: 100%;
-        min-height: 44px;
-        height: auto;
-        margin: var(--space-3) 0;
-        padding: 0.7rem 1rem;
-        white-space: normal;
-        text-align: center;
-        line-height: 1.25;
-      }
-      .pkg-early-cta:not(.btn) .btn {
-        margin: 0;
-      }
-      .pkg-early-cta .btn-ico,
-      .btn.pkg-early-cta .btn-ico {
-        width: 15px;
-        height: 15px;
-        flex: 0 0 auto;
+      /* --- Un solo WhatsApp por tarjeta --------------------------------- */
+      /* Cerrada: "Consultar este viaje" en la fila de acciones. Abierta: se
+         oculta y el contacto vive solo en el cierre del detalle. */
+      .pkg-compact.is-expanded .pkg-compact-actions .btn.pkg-card-wa,
+      .group-card.is-expanded .pkg-compact-actions .btn.pkg-card-wa {
+        display: none;
       }
 
       /* --- Salidas acompañadas con detalle (acción 6) -------------------- */
@@ -3895,6 +3890,138 @@
         color: inherit;
         text-align: left;
         cursor: pointer;
+      }
+
+      /* --- Salidas acompañadas vencidas ---------------------------------- */
+      .group-notice {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem 1.25rem;
+        margin: 0 0 1rem;
+        padding: 1rem 1.15rem;
+        border: 1.5px solid var(--p200);
+        border-radius: 16px;
+        background: var(--p50);
+      }
+      .group-notice[hidden] {
+        display: none;
+      }
+      .group-notice-copy {
+        flex: 1 1 320px;
+        min-width: 0;
+      }
+      .group-notice-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0;
+        color: var(--ink);
+        font-size: 1rem;
+        font-weight: 800;
+      }
+      /* Punto que late: "en preparación", no "agotado". */
+      .group-notice-title::before {
+        content: "";
+        flex: 0 0 auto;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--p700);
+        box-shadow: 0 0 0 0 rgba(134, 9, 166, 0.45);
+        animation: group-notice-pulse 1.8s ease-out infinite;
+      }
+      @keyframes group-notice-pulse {
+        70% {
+          box-shadow: 0 0 0 9px rgba(134, 9, 166, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(134, 9, 166, 0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .group-notice-title::before {
+          animation: none;
+        }
+      }
+      .group-notice-text {
+        margin: 0.3rem 0 0;
+        color: var(--body);
+        font-size: 0.85rem;
+        line-height: 1.45;
+      }
+      .group-notice .btn {
+        flex: 0 0 auto;
+        min-height: 44px;
+        gap: 7px;
+      }
+      .group-notice .btn-ico {
+        width: 15px;
+        height: 15px;
+      }
+      @media (max-width: 599px) {
+        .group-notice .btn {
+          flex: 1 1 100%;
+          justify-content: center;
+        }
+      }
+
+      .group-card.is-closed {
+        border-style: dashed;
+        box-shadow: none;
+      }
+      .group-card.is-closed .group-card-photo {
+        position: relative;
+      }
+      .group-card.is-closed img {
+        filter: grayscale(0.85) brightness(0.92);
+      }
+      .group-closed-badge {
+        position: absolute;
+        top: 0.7rem;
+        left: 0.7rem;
+        padding: 0.3rem 0.65rem;
+        border-radius: 999px;
+        background: rgba(25, 25, 25, 0.82);
+        color: #fff;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+      .group-card.is-closed .group-date {
+        color: var(--muted);
+      }
+      .group-card.is-closed .group-meta {
+        margin-bottom: 0.6rem;
+        color: var(--muted);
+      }
+      .group-closed-note {
+        margin: 0 0 0.75rem;
+        color: var(--body);
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+      /* Acciones de la tarjeta de salida: al ancho de la tarjeta, alineadas
+         con el título, nunca angostas y corridas a la derecha. */
+      .group-card .pkg-compact-actions {
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        margin: auto 0 0;
+      }
+      .group-card .pkg-compact-actions .btn.pkg-card-wa {
+        align-self: stretch;
+        width: 100%;
+        margin: 0;
+      }
+      .group-card .pkg-compact-actions .pkg-compact-info {
+        margin-bottom: 0;
+      }
+      /* Al abrir una cerrada, las vecinas no se estiran con huecos. */
+      .group-strip:has(.group-card.is-closed) {
+        align-items: start;
       }
 
       /* --- Barra fija: estado oculto sin foco ni toques (acción 10) ------ */
