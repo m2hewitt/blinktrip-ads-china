@@ -54,150 +54,79 @@
         "Vuelos internacionales · Hoteles · Guía en español · Traslados y excursiones programadas · Soporte 24/7 de BlinkTrip";
       const PRODUCTS = [
         {
-          id: "panda",
+          id: "pandas-avatar-acompanada",
           family: "acompanadas",
-          customerName: "China & encuentro con los Osos Panda",
-          sourceName: "Piamonte",
-          startDate: "2026-10-03",
-          dateWindow: null,
-          dateMode: "fixed",
-          days: 14,
-          nights: 11,
-          priceUsd: 4866,
+          customerName: "China: Pandas y Avatar",
+          startDate: "2027-04-02",
+          days: 21,
+          nights: 17,
+          priceUsd: 8015,
           priceLabel: "Desde USD",
-          priceBasis: "precio de referencia por persona, en habitación doble",
           route:
-            "Pekín (3n) → Luoyang → Xi’an (2n) → Chengdú (2n) → Shanghái (4n)",
-          hook: "Incluye una experiencia con pandas en el Centro de Cría de Chengdú.",
-          highlights: [
-            "Grutas de Longmen",
-            "Gran Buda de Leshan",
-            "4 noches en Shanghái",
-          ],
-          accompaniment: "Acompañante de Piamonte",
-          minPassengers: 20,
-          availability: { used: 19, total: 24 },
-          image: "panda",
-          whatsappIntent: "panda",
-          badges: ["Longmen", "Leshan"],
+            "Beijing → Xi’an → Chengdú → Chongqing → Zhangjiajie → Furong → Fenghuang → Shanghái",
+          hook: "Tres noches en Zhangjiajie y una visita al centro de cría de pandas de Chengdú.",
+          highlights: ["Puente de Cristal", "Montaña Tianmen", "Paseo nocturno en Fenghuang"],
+          accompaniment: "Tour leader desde Argentina durante todo el viaje",
+          image: "zhangjiajie",
           particular:
-            "Vuelos Ethiopian vía Adís Abeba. Actividad con pandas informada por el operador.",
-        },
-        {
-          id: "crown-hk",
-          family: "acompanadas",
-          customerName: "China, Hangzhou & Hong Kong",
-          sourceName: "Crown Travel",
-          startDate: "2026-10-03",
-          dateWindow: null,
-          dateMode: "fixed",
-          days: 19,
-          nights: 15,
-          priceUsd: 7497,
-          priceLabel: "Desde USD",
-          priceBasis: "precio de referencia por persona, en habitación doble",
-          route:
-            "Beijing (3n) → Xi’an (2n) → Guilin (2n) → Hangzhou (2n) → Suzhou (1n) → Shanghái (2n) → Hong Kong (3n)",
-          hook: "Combina Hangzhou y Suzhou antes de finalizar en Hong Kong.",
-          highlights: [
-            "Crucero por el Río Li",
-            "Lago del Oeste",
-            "3 noches en Hong Kong",
-          ],
-          accompaniment: "Coordinador desde Buenos Aires",
-          minPassengers: 10,
-          availability: { used: 11, total: 16 },
-          image: "shanghai",
-          whatsappIntent: "crown-hk",
-          badges: ["Río Li", "Hangzhou + Suzhou"],
-          particular:
-            "Vuelos Ethiopian vía Adís Abeba. Desayuno y 8 comidas según programa.",
+            "Vuelos con Ethiopian Airlines, vuelos internos, trenes de alta velocidad, guías en español y 14 comidas.",
         },
         {
           id: "tibet",
           family: "acompanadas",
-          customerName: "China & Tíbet",
-          sourceName: "Midas",
-          startDate: "2026-10-10",
-          dateWindow: null,
-          dateMode: "fixed",
-          days: 22,
-          nights: 18,
-          priceUsd: 10500,
+          customerName: "China & Tibet",
+          startDate: "2027-04-06",
+          days: 23,
+          nights: 19,
+          priceUsd: 10220,
           priceLabel: "Desde USD",
-          priceBasis: "precio de referencia por persona, en habitación doble",
           route:
-            "Beijing (4n) → Xi’an (2n) → Lhasa/Tíbet (3n) → Chengdú (2n) → Zhangjiajie (2n) → Furong (1n) → Fenghuang (2n) → Shanghái (2n)",
-          hook: "Recorre Tíbet, Furong, Fenghuang y las montañas de Zhangjiajie.",
-          highlights: [
-            "Palacio Potala",
-            "Monasterios Sera y Jokhang",
-            "Autorización de ingreso incluida",
-          ],
-          accompaniment: "Tour leader",
+            "Beijing → Xi’an → Lhasa → Chengdú → Zhangjiajie → Furong → Fenghuang → Shanghái",
+          hook: "Tres noches en Lhasa para visitar el Palacio Potala, los monasterios y el mercado Barkhor.",
+          highlights: ["Palacio Potala", "Monasterios Sera y Jokhang", "Permiso de ingreso al Tíbet incluido"],
+          accompaniment: "Tour leader desde Argentina",
           minPassengers: 10,
-          availability: { used: 10, total: 12 },
           image: "tibet",
-          whatsappIntent: "tibet",
-          badges: ["Potala", "Avatar"],
           particular:
-            "Vuelos Turkish vía Estambul. Incluye la autorización especial de ingreso al Tíbet.",
+            "Vuelos con Turkish Airlines, vuelos internos, tren de alta velocidad a Shanghái, guías en español, nueve almuerzos y dos cenas.",
+        },
+        {
+          id: "acompanada-hong-kong-china",
+          family: "acompanadas",
+          customerName: "Hong Kong & China",
+          startDate: "2027-05-10",
+          days: 21,
+          nights: 17,
+          priceUsd: 8230,
+          priceLabel: "Desde USD",
+          route:
+            "Hong Kong → Beijing → Xi’an → Chongqing → Guilin → Hangzhou → Shanghái",
+          hook: "Arranca con dos noches en Hong Kong y suma una navegación por el río Li hasta Yangshuo.",
+          highlights: ["Gran Muralla", "Tren de Chongqing", "Show de acrobacia en Shanghái"],
+          accompaniment: "Tour leader desde Argentina",
+          minPassengers: 10,
+          image: "guilin",
+          particular:
+            "Vuelos con Turkish Airlines, vuelos internos, trenes, traslados, visitas en español, nueve almuerzos y una cena de pato laqueado.",
         },
         {
           id: "toselli-hk",
           family: "acompanadas",
-          customerName: "China & Hong Kong",
-          sourceName: "Toselli",
-          startDate: "2026-10-23",
-          dateWindow: null,
-          dateMode: "fixed",
-          days: 21,
+          customerName: "China y Hong Kong",
+          startDate: "2027-05-11",
+          days: 23,
           nights: 20,
-          priceUsd: 8480,
+          priceUsd: 8019,
           priceLabel: "Desde USD",
-          priceBasis: "precio de referencia por persona, en habitación doble",
+          departureLabel: "Salida garantizada",
           route:
-            "Beijing (3n) → Xi’an (2n) → Chengdú (2n) → Zhangjiajie (2n) → Shanghái (4n, con Suzhou) → Guilin (2n, con Yangshuo) → Hong Kong (3n)",
-          hook: "Combina pandas, Zhangjiajie, Guilin, Suzhou y Hong Kong.",
-          highlights: ["Puente de Cristal", "Monte Tianmen", "Torre Shanghai"],
-          accompaniment: "Guía local en español en el recorrido",
-          minPassengers: 15,
-          availability: { used: 9, total: 20 },
-          image: "xian",
-          whatsappIntent: "toselli-hk",
-          badges: ["Pandas", "Avatar"],
+            "Beijing → Xi’an → Chengdú → Chongqing → Zhangjiajie → Shanghái → Guilin → Hong Kong",
+          hook: "Recorre las montañas de Zhangjiajie y navega por el río Li antes de terminar en Hong Kong.",
+          highlights: ["Osos panda en Chengdú", "Excursión a Suzhou", "Crucero por el río Li"],
+          accompaniment: "Guías en español en cada ciudad. Acompañante garantizado desde 15 pasajeros.",
+          image: "hongkong",
           particular:
-            "Vuelos Ethiopian. 13 comidas según programa. Tipo de acompañamiento desde Argentina pendiente de confirmación.",
-        },
-        {
-          id: "estambul",
-          family: "acompanadas",
-          customerName: "China y Estambul · Solas & Solo",
-          sourceName: "Eurovips",
-          startDate: "2026-11-15",
-          dateWindow: null,
-          dateMode: "fixed",
-          days: 20,
-          nights: 17,
-          priceUsd: 6850,
-          priceLabel: "Desde USD",
-          priceBasis: "precio de referencia por persona, en habitación doble",
-          route:
-            "Beijing (4n) → Luoyang (1n) → Xi’an (2n) → Guilin (2n) → Hangzhou (2n) → Suzhou (1n) → Shanghái (2n) → Estambul (3n)",
-          hook: "Formato Solas & Solo, con Templo Shaolin y tres noches en Estambul.",
-          highlights: [
-            "Templo Shaolin",
-            "Río Li y Guilin",
-            "Hangzhou y Suzhou",
-          ],
-          accompaniment: "Guía local en español en el recorrido",
-          minPassengers: null,
-          availability: { used: 12, total: 18 },
-          image: "istanbul",
-          whatsappIntent: "estambul",
-          badges: ["Shaolin", "Río Li"],
-          particular:
-            "Vuelos Turkish TK16. Tipo de acompañamiento desde Argentina pendiente de confirmación.",
+            "Vuelos internacionales e internos, trenes de alta velocidad y 13 comidas incluidas.",
         },
         {
           id: "express",
@@ -1378,17 +1307,12 @@
         const wa = (location, className = "") => `<a class="btn btn-wa pkg-wa ${className}" data-wa data-product="${p.id}" data-journey-type="accompanied" data-cta-location="${location}" href="${waLink()}" target="_blank" rel="noopener">Consultar este viaje</a>`;
         // Only the operator-specific information in PRODUCTS is presented as
         // inclusions; COMMON belongs to customizable circuits, not departures.
-        return `<article class="group-card" data-id="${p.id}"><button class="group-detail-toggle group-card-photo" type="button" ${trigger}><img src="img/${p.image}.webp" alt="" width="1200" height="800" loading="lazy"></button><div class="group-card-body"><span class="group-date">Salida ${displayDate(p)}</span><h3><button class="group-detail-toggle group-card-title" type="button" ${trigger}>${p.customerName}</button></h3><div class="group-meta"><span>${p.nights} noches</span><strong>${p.priceLabel} ${money(p.priceUsd)}</strong></div>${cardAvailabilityHtml(p)}<div class="pkg-compact-actions">${wa("accompanied_card", "pkg-card-wa")}<button class="pkg-compact-info group-detail-toggle" type="button" ${trigger}><span class="pkg-compact-info-label">Ver salida y qué incluye</span><span class="pkg-compact-info-chevron" aria-hidden="true">⌄</span></button></div><div class="pkg-compact-detail pkg-detail group-detail" id="${detailId}" aria-hidden="true" hidden><div class="detail-inner"><div class="detail-grid"><p><b>Salida:</b> ${displayDate(p)} · ${p.days} días · ${p.nights} noches</p><p><b>Recorrido:</b> ${p.route}</p><p><b>Por qué elegirlo:</b> ${p.hook}</p></div><div class="highlights">${p.highlights.map(x => `<span><b class="hl-check">✓</b> ${x}</span>`).join("")}</div><p><b>Acompañamiento:</b> ${p.accompaniment}</p>${p.minPassengers ? `<p><b>Mínimo de pasajeros:</b> ${p.minPassengers}</p>` : ""}<p><b>Servicios y condiciones del programa:</b> ${p.particular}</p><p class="common">El detalle de inclusiones se confirma al consultar esta salida.</p><div class="pkg-compact-cta">${wa("accompanied_detail")}</div></div></div></div></article>`;
+        return `<article class="group-card" data-id="${p.id}"><button class="group-detail-toggle group-card-photo" type="button" ${trigger}><img src="img/${p.image}.webp" alt="" width="1200" height="800" loading="lazy"></button><div class="group-card-body"><span class="group-date">${p.departureLabel || "Salida"} ${displayDate(p)}</span><h3><button class="group-detail-toggle group-card-title" type="button" ${trigger}>${p.customerName}</button></h3><div class="group-meta"><span>${p.nights} noches</span><strong>${p.priceLabel} ${money(p.priceUsd)}</strong></div>${cardAvailabilityHtml(p)}<div class="pkg-compact-actions">${wa("accompanied_card", "pkg-card-wa")}<button class="pkg-compact-info group-detail-toggle" type="button" ${trigger}><span class="pkg-compact-info-label">Ver salida y qué incluye</span><span class="pkg-compact-info-chevron" aria-hidden="true">⌄</span></button></div><div class="pkg-compact-detail pkg-detail group-detail" id="${detailId}" aria-hidden="true" hidden><div class="detail-inner"><div class="detail-grid"><p><b>Salida:</b> ${displayDate(p)} · ${p.days} días · ${p.nights} noches</p><p><b>Recorrido:</b> ${p.route}</p><p><b>Por qué elegirlo:</b> ${p.hook}</p></div><div class="highlights">${p.highlights.map(x => `<span><b class="hl-check">✓</b> ${x}</span>`).join("")}</div><p><b>Acompañamiento:</b> ${p.accompaniment}</p>${p.minPassengers ? `<p><b>Mínimo de pasajeros:</b> ${p.minPassengers}</p>` : ""}<p><b>Servicios y condiciones del programa:</b> ${p.particular}</p><p class="common">El detalle de inclusiones se confirma al consultar esta salida.</p><div class="pkg-compact-cta">${wa("accompanied_detail")}</div></div></div></div></article>`;
       }
-      const FEATURED_ACCOMPANIED = [
-        "estambul",
-        "toselli-hk",
-        "tibet",
-      ];
-      // Abiertas primero; las cerradas quedan al final del carrusel.
-      const featuredAccompanied = FEATURED_ACCOMPANIED.map((id) =>
-        PRODUCTS.find((p) => p.id === id),
-      ).sort((a, b) => isClosedDeparture(a) - isClosedDeparture(b));
+      // Abiertas primero; dentro de cada grupo se conserva el orden por fecha.
+      const featuredAccompanied = PRODUCTS.filter((p) => p.family === "acompanadas")
+        .sort((a, b) => isClosedDeparture(a) - isClosedDeparture(b) ||
+          a.startDate.localeCompare(b.startDate));
       document.getElementById("accompaniedList").innerHTML = featuredAccompanied
         .map(accompaniedCardHtml)
         .join("");
